@@ -1,0 +1,54 @@
+{
+  "name": "@apricot-s/majiang-log",
+  "version": "0.1.0",
+  "description": "電脳麻将形式の牌譜を天鳳形式に変換する",
+  "author": "Apricot S.",
+  "license": "MIT",
+  "keywords": [
+    "麻雀",
+    "天鳳",
+    "電脳麻将",
+    "牌譜"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apricot-S/majiang-log.git"
+  },
+  "homepage": "https://github.com/Apricot-S/majiang-log#readme",
+  "bugs": {
+    "url": "https://github.com/Apricot-S/majiang-log/issues"
+  },
+  "type": "module",
+  "packageManager": "npm@10.8.1+sha512.0e9d42e92bd2318408ed81eaff2da5f78baf23ee7d12a6eed44a6e2901d0f29d7ab715d1b918ade601f72e769a824d9a5c322383f22bbbda5dd396e79de2a077",
+  "main": "dist/lib/convertLog.js",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "majiang-log": "dist/command.js",
+    "majiang-log-server": "dist/server.js"
+  },
+  "scripts": {
+    "lint": "eslint --fix src",
+    "format": "prettier . --write --cache",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.5.0",
+    "@types/eslint": "^8.56.10",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.7",
+    "eslint": "^9.5.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.6.0",
+    "jest": "^29.7.0",
+    "prettier": "3.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "^8.0.0-alpha.30"
+  }
+}
