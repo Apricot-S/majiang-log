@@ -32,7 +32,7 @@ const server = Fastify({
   logger: true,
 });
 
-server.addHook('preHandler', async (request, reply) => {
+server.addHook('preHandler', async (request: any, reply: any) => {
   const contentType = request.headers['content-type'];
   if (contentType && contentType.toLowerCase().startsWith('application/json')) {
     return;
@@ -44,14 +44,14 @@ server.addHook('preHandler', async (request, reply) => {
   }
 });
 
-server.post(base, async (request, reply) => {
+server.post(base, async (request: any, reply: any) => {
   const data = request.body;
   const output = convertLog(data, 'log');
   reply.header('Content-Type', 'application/json').code(200);
   reply.send(output);
 });
 
-server.listen({ port: port }, (error, address) => {
+server.listen({ port: port }, (error: any, address: any) => {
   if (error) {
     server.log.error(error);
     process.exit(1);
