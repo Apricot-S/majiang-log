@@ -34,23 +34,23 @@ const server = Fastify({
   logger: true,
 });
 
-server.addHook('preHandler', async (request: any, response: any) => {
+server.addHook('preHandler', async (request: any, reply: any) => {
   const contentType = request.headers['content-type'];
   if (contentType && contentType.toLowerCase().startsWith('application/json')) {
     return;
   } else {
-    response
+    reply
       .code(400)
       .send({ error: 'Invalid content type. Expected application/json' });
     throw new Error('Invalid content type. Expected application/json');
   }
 });
 
-server.post(base, async (request: any, response: any) => {
+server.post(base, async (request: any, reply: any) => {
   const data = request.body;
   const output = convertLog(data, 'log');
-  response.header('Content-Type', 'application/json').code(200);
-  response.send(output);
+  reply.header('Content-Type', 'application/json').code(200);
+  reply.send(output);
 });
 
 server.listen({ port: port }, (error: any, address: any) => {
