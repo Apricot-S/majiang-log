@@ -3,7 +3,7 @@
 import { parseArgs } from 'node:util';
 import process from 'node:process';
 import { convertLog } from './lib/convertLog.js';
-import Fastify from 'fastify';
+import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
 
 
 const options = {
@@ -34,7 +34,7 @@ const server = Fastify({
   logger: true,
 });
 
-server.addHook('preHandler', async (request: any, reply: any) => {
+server.addHook('preHandler', async (request: FastifyRequest, reply: FastifyReply) => {
   const contentType = request.headers['content-type'];
   if (contentType && contentType.toLowerCase().startsWith('application/json')) {
     return;
@@ -46,9 +46,9 @@ server.addHook('preHandler', async (request: any, reply: any) => {
   }
 });
 
-server.post(base, async (request: any, reply: any) => {
+server.post(base, async (request: FastifyRequest, reply: FastifyReply) => {
   const data = request.body;
-  const output = convertLog(data, 'log');
+  const output = convertLog(data as object, 'log');
   reply.header('Content-Type', 'application/json').code(200);
   reply.send(output);
 });
