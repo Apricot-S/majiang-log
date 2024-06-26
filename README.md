@@ -15,7 +15,7 @@ majiang-log$ docker build -t apricot-s/majiang-log .
 実行
 
 ```sh
-cat PATH/TO/majiang-game-record.json | docker run -i apricot-s/majiang-log --mode log > PATH/TO/your-favorite-name.json
+docker run -i apricot-s/majiang-log --mode log < PATH/TO/majiang-game-record.json > PATH/TO/your-favorite-name.json
 ```
 
 ## ライセンス / License
