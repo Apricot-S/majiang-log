@@ -112,7 +112,7 @@ export const MODE = {
   Viewer: 'viewer',
 } as const;
 
-export type Mode = (typeof MODE)[keyof typeof MODE];
+export type Mode = keyof typeof MODE;
 
 export const convertLog = (
   input: object,
