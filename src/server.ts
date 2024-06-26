@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util';
-import Fastify from 'fastify';
+import process from 'node:process';
 import { convertLog } from './lib/convertLog.js';
+import Fastify from 'fastify';
+
 
 const options = {
   port: {
