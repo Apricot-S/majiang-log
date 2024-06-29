@@ -1,5 +1,6 @@
 export const MAJIANG_LOG_SCHEMA = {
   type: 'object',
+  required: ['title', 'player', 'qijia', 'log', 'defen', 'point', 'rank'],
   properties: {
     title: {
       type: 'string',
@@ -44,6 +45,7 @@ export const MAJIANG_LOG_SCHEMA = {
 
 export const TENHOU_LOG_SCHEMA = {
   type: 'object',
+  required: ['lobby', 'log', 'name', 'ratingc', 'rule', 'title', 'ver'],
   properties: {
     lobby: {
       type: 'number',
@@ -59,29 +61,29 @@ export const TENHOU_LOG_SCHEMA = {
       items: {
         type: 'string',
       },
-      ratingc: {
-        type: 'string',
-      },
-      rule: {
-        type: 'object',
-        properties: {
-          aka: {
-            type: 'number',
-          },
-          disp: {
-            type: 'string',
-          },
+    },
+    ratingc: {
+      type: 'string',
+    },
+    rule: {
+      type: 'object',
+      properties: {
+        aka: {
+          type: 'number',
         },
-      },
-      title: {
-        type: 'array',
-        items: {
+        disp: {
           type: 'string',
         },
       },
-      ver: {
+    },
+    title: {
+      type: 'array',
+      items: {
         type: 'string',
       },
+    },
+    ver: {
+      type: 'string',
     },
   },
 } as const;
