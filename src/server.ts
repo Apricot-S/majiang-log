@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util';
+import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
 import Fastify, { FastifyInstance } from 'fastify';
 import { convertLog } from './lib/convertLog.js';
 import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
@@ -40,7 +41,9 @@ const getOptions = (): Options => {
 };
 
 const createServer = (baseurl: string): FastifyInstance => {
-  const server = Fastify({ logger: true });
+  const server = Fastify({
+    logger: true,
+  }).withTypeProvider<JsonSchemaToTsProvider>();
 
   server.addHook('preHandler', async (request, reply) => {
     const contentType = request.headers['content-type'];
