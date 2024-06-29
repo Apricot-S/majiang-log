@@ -55,9 +55,16 @@ const createServer = (baseurl: string): FastifyInstance => {
   });
 
   server.post(baseurl, async (request, reply) => {
-    const data = request.body;
-    const output = convertLog(data, 'log');
-    reply.header('Content-Type', 'application/json').code(200).send(output);
+    try {
+      const data = request.body;
+      const output = convertLog(data, 'log');
+      reply.header('Content-Type', 'application/json').code(200).send(output);
+    } catch (error) {
+      server.log.error(error);
+      reply
+        .code(500)
+        .send({ error: 'An error occurred while processing the request' });
+    }
   });
 
   return server;
