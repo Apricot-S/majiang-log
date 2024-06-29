@@ -3,6 +3,7 @@
 import { parseArgs } from 'node:util';
 import Fastify, { FastifyInstance } from 'fastify';
 import { convertLog } from './lib/convertLog.js';
+import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
 
 const options = {
   port: {
@@ -54,7 +55,8 @@ const createServer = (baseurl: string): FastifyInstance => {
     }
   });
 
-  server.post(baseurl, async (request, reply) => {
+  const schema = { body: MAJIANG_LOG_SCHEMA };
+  server.post(baseurl, { schema }, async (request, reply) => {
     try {
       const data = request.body;
       const output = convertLog(data, 'log');
