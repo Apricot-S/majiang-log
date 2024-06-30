@@ -60,16 +60,9 @@ const createServer = (baseurl: string): FastifyInstance => {
 
   const schema = { body: MAJIANG_LOG_SCHEMA };
   server.post(baseurl, { schema }, async (request, reply) => {
-    try {
-      const data = request.body;
-      const output = convertLog(data, 'log');
-      reply.header('Content-Type', 'application/json').code(200).send(output);
-    } catch (error) {
-      server.log.error(error);
-      reply
-        .code(500)
-        .send({ error: 'An error occurred while processing the request' });
-    }
+    const data = request.body;
+    const output = convertLog(data, 'log');
+    reply.header('Content-Type', 'application/json').code(200).send(output);
   });
 
   return server;
