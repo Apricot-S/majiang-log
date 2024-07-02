@@ -18,4 +18,4 @@ RUN npm install --omit=dev && npm cache clean --force
 
 COPY --from=builder /work/dist ./dist
 
-CMD ["majiang-log"]
+ENTRYPOINT ["npx", "majiang-log"]
