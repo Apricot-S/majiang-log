@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY tsconfig.json ./
-COPY src ./
+COPY src ./src
 RUN npm run build
 
 FROM node:20-bookworm-slim as runner
