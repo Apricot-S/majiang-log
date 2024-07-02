@@ -61,7 +61,7 @@ const startServer = (server: FastifyInstance, port: number) => {
       server.log.error(error);
       process.exit(1);
     }
-    server.log.info(`Server listening on ${address}`);
+    console.log(`Server listening at ${address}`);
   });
 
   process.on('SIGINT', async () => {
