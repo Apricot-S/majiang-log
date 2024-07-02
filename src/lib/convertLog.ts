@@ -128,12 +128,7 @@ export const convertLog = (
       log = {
         lobby: 0,
         log: [],
-        name: [
-          '不正经の桔',
-          'フェートフィアダ',
-          'そば魂おっません',
-          'ムリだよ',
-        ],
+        name: input.player,
         ratingc: 'PF4',
         rule: { aka: 1, disp: '4-Player South' },
         title: ['4-Player South', '2024-06-17 15:30:56'],
