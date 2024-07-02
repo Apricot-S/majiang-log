@@ -15,6 +15,5 @@ node_modules/
 .prettierignore
 .prettierrc
 eslint.config.js
-tsconfig.json
 
 examples/
