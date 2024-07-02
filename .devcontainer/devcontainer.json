@@ -26,7 +26,11 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker"
+      ],
       "settings": {
         "editor.tabSize": 2,
         "[javascript]": {
