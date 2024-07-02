@@ -122,25 +122,23 @@ export const convertLog = (
     throw new Error(`Invalid input: ${input}`);
   }
 
-  let log: TenhouLog | TenhouViewerUrls | undefined = undefined;
-  switch (mode) {
-    case MODE.Log:
-      log = {
-        lobby: 0,
-        log: [],
-        name: input.player,
-        ratingc: 'PF4',
-        rule: { aka: 1, disp: '4-Player South' },
-        title: ['4-Player South', '2024-06-17 15:30:56'],
-        ver: '2.3',
-      };
-      break;
-    case MODE.Viewer:
-      log = ['aaa', 'bbb', 'ccc'];
-      break;
-    default:
-      throw new Error(`Invalid mode: ${mode}`);
+  const modes: string[] = Object.values(MODE);
+  if (!modes.includes(mode)) {
+    throw new Error(`Invalid mode: ${mode}`);
   }
 
+  const log: TenhouLog = {
+    lobby: 0,
+    log: [],
+    name: input.player,
+    ratingc: 'PF4',
+    rule: { aka: 1, disp: '4-Player South' },
+    title: ['4-Player South', '2024-06-17 15:30:56'],
+    ver: '2.3',
+  };
+
+  if (mode === MODE.Viewer) {
+    return [VIEWER_URL_HEAD + JSON.stringify(log)];
+  }
   return log;
 };
