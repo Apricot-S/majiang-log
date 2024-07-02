@@ -132,8 +132,8 @@ export const convertLog = (
     log: [],
     name: input.player,
     ratingc: 'PF4',
-    rule: { aka: 1, disp: '4-Player South' },
-    title: ['4-Player South', '2024-06-17 15:30:56'],
+    rule: { aka: 1, disp: '電脳南喰赤' },
+    title: ['電脳麻将', ''],
     ver: '2.3',
   };
 
