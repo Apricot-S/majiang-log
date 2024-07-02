@@ -26,7 +26,7 @@ Docker を使用する場合
 majiang-log$ docker build -t apricot-s/majiang-log .
 ```
 
-実行
+変換
 
 ```sh
 cat PATH/TO/majiang-game-record.json | docker run --rm -i apricot-s/majiang-log > PATH/TO/your-favorite-name.txt
