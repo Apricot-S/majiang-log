@@ -45,19 +45,6 @@ const createServer = (baseurl: string): FastifyInstance => {
     logger: true,
   }).withTypeProvider<JsonSchemaToTsProvider>();
 
-  server.addHook('preHandler', async (request, reply) => {
-    const contentType = request.headers['content-type'];
-    if (
-      !contentType ||
-      !contentType.toLowerCase().startsWith('application/json')
-    ) {
-      reply
-        .code(400)
-        .send({ error: 'Invalid content type. Expected application/json' });
-      throw new Error('Invalid content type. Expected application/json');
-    }
-  });
-
   const schema = { body: MAJIANG_LOG_SCHEMA };
   server.post(baseurl, { schema }, async (request, reply) => {
     const data = request.body;
