@@ -36,18 +36,22 @@ type Options = {
 const getOptions = (): Options => {
   const args = process.argv.slice(2);
   const parsedArgs = parseArgs({ options, args });
+
   const port = parseInt(parsedArgs.values.port!);
   if (isNaN(port) || port < 1024 || port > 49151) {
     throw new Error('Invalid port number');
   }
+
   const baseurl =
     ('' + parsedArgs.values.baseurl)
       .replace(/^(?!\/.*)/, '/$&')
       .replace(/\/$/, '') + '/';
+
   const mode = parsedArgs.values.mode!;
   if (!isMode(mode)) {
     throw new Error(`Invalid mode: ${mode}`);
   }
+
   return { port, baseurl, mode };
 };
 
