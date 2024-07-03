@@ -11,7 +11,7 @@ const options = {
     type: 'string',
     short: 'p',
     multiple: false,
-    default: '8081',
+    default: '8001',
   },
   baseurl: {
     type: 'string',
