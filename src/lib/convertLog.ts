@@ -123,12 +123,12 @@ export const convertLog = (
   input: object,
   mode: string,
 ): TenhouLog | TenhouViewerUrls => {
-  if (!isMajiangLog(input)) {
-    throw new Error(`Invalid input: ${input}`);
-  }
-
   if (!isMode(mode)) {
     throw new Error(`Invalid mode: ${mode}`);
+  }
+
+  if (!isMajiangLog(input)) {
+    throw new Error(`Invalid input: ${input}`);
   }
 
   const log: TenhouLog = {
