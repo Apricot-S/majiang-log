@@ -7,7 +7,9 @@
 Docker を使用する場合はインストール不要
 
 ```sh
-majiang-log$ npm install -g
+majiang-log$ npm install
+majiang-log$ npm run build
+majiang-log$ npm install -g --omit=dev
 ```
 
 ## 使用例 / Usage
