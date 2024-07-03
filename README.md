@@ -43,25 +43,33 @@ majiang-log-server &
 変換
 
 ```sh
-curl -sS http://127.0.0.1:8001/majiang-log/ -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
+curl -sS http://127.0.0.1:8001/majiang-log/log -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
 ```
 
-## オプション / Option
-
-変換モード
-
-- `log`: JSON log (for mjai-reviewer)
-- `viewer`: Tenhou viewer URLs (for NAGA)
+## 使用方法 / Usage
 
 ### majiang-log [--mode *(log|viewer)*]
 
-- `--mode`, `-m`: 変換モードを指定する (デフォルト値は `log`)
+- `--mode`, `-m`  
+変換モードを指定する (デフォルト値は `log`)
+  - `log`  
+JSON ログ (mjai-reviewer 用)
+  - `viewer`  
+天鳳牌譜ビューア URL (NAGA 用)
 
 ### majiang-log-server
 
-- `--port`, `-p`: 変換サーバを起動するポート番号 (デフォルト値は `8001`)
-- `--baseurl`, `-b`: 変換サーバに割り当てるURL(デフォルト値は `/majiang-log/`)
-- `--mode`, `-m`: 変換モードを指定する (デフォルト値は `log`)
+- `--port`, `-p`  
+変換サーバを起動するポート番号 (デフォルト値は `8001`)
+- `--baseurl`, `-b`  
+変換サーバに割り当てるURL(デフォルト値は `/majiang-log/`)
+
+#### URL
+
+- **/majiang-log/log**  
+牌譜を JSON ログ (mjai-reviewer 用) に変換する
+- **/majiang-log/viewer**  
+牌譜を天鳳牌譜ビューア URL (NAGA 用) に変換する
 
 ## ライセンス / License
 
