@@ -43,8 +43,25 @@ majiang-log-server &
 変換
 
 ```sh
-curl -sS http://127.0.0.1:8081/majiang-log/ -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
+curl -sS http://127.0.0.1:8001/majiang-log/ -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
 ```
+
+## オプション / Option
+
+変換モード
+
+- `log`: JSON log (for mjai-reviewer)
+- `viewer`: Tenhou viewer URLs (for NAGA)
+
+### majiang-log [--mode *(log|viewer)*]
+
+- `--mode`, `-m`: 変換モードを指定する (デフォルト値は `log`)
+
+### majiang-log-server
+
+- `--port`, `-p`: 変換サーバを起動するポート番号 (デフォルト値は `8001`)
+- `--baseurl`, `-b`: 変換サーバに割り当てるURL(デフォルト値は `/majiang-log/`)
+- `--mode`, `-m`: 変換モードを指定する (デフォルト値は `log`)
 
 ## ライセンス / License
 
