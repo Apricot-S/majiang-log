@@ -114,6 +114,11 @@ export const MODE = {
 
 export type Mode = (typeof MODE)[keyof typeof MODE];
 
+export const isMode = (mode: string): mode is Mode => {
+  const modes: string[] = Object.values(MODE);
+  return modes.includes(mode);
+};
+
 export const convertLog = (
   input: object,
   mode: string,
@@ -122,8 +127,7 @@ export const convertLog = (
     throw new Error(`Invalid input: ${input}`);
   }
 
-  const modes: string[] = Object.values(MODE);
-  if (!modes.includes(mode)) {
+  if (!isMode(mode)) {
     throw new Error(`Invalid mode: ${mode}`);
   }
 
