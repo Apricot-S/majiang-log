@@ -3,7 +3,7 @@
 import { parseArgs } from 'node:util';
 import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
 import Fastify, { FastifyInstance } from 'fastify';
-import { convertLog } from './lib/convertLog.js';
+import { convertLog, Mode, MODE } from './lib/convertLog.js';
 import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
 
 const options = {
@@ -19,11 +19,18 @@ const options = {
     multiple: false,
     default: '/majiang-log/',
   },
+  mode: {
+    type: 'string',
+    short: 'm',
+    multiple: false,
+    default: MODE.Log,
+  },
 } as const;
 
 type Options = {
   port: number;
   baseurl: string;
+  mode: Mode;
 };
 
 const getOptions = (): Options => {
@@ -37,10 +44,11 @@ const getOptions = (): Options => {
     ('' + parsedArgs.values.baseurl)
       .replace(/^(?!\/.*)/, '/$&')
       .replace(/\/$/, '') + '/';
-  return { port, baseurl };
+  const mode = parsedArgs.values.mode!;
+  return { port, baseurl, mode };
 };
 
-const createServer = (baseurl: string): FastifyInstance => {
+const createServer = (baseurl: string, mode: Mode): FastifyInstance => {
   const server = Fastify({
     logger: true,
   }).withTypeProvider<JsonSchemaToTsProvider>();
@@ -48,7 +56,7 @@ const createServer = (baseurl: string): FastifyInstance => {
   const schema = { body: MAJIANG_LOG_SCHEMA };
   server.post(baseurl, { schema }, async (request, reply) => {
     const data = request.body;
-    const output = convertLog(data, 'log');
+    const output = convertLog(data, mode);
     reply.header('Content-Type', 'application/json').code(200).send(output);
   });
 
@@ -72,7 +80,7 @@ const startServer = (server: FastifyInstance, port: number) => {
 
 const main = () => {
   const options = getOptions();
-  const server = createServer(options.baseurl);
+  const server = createServer(options.baseurl, options.mode);
   startServer(server, options.port);
 };
 
