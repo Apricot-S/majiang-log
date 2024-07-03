@@ -3,7 +3,7 @@
 import { parseArgs } from 'node:util';
 import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
 import Fastify, { FastifyInstance } from 'fastify';
-import { convertLog, Mode, MODE } from './lib/convertLog.js';
+import { convertLog, isMode, Mode, MODE } from './lib/convertLog.js';
 import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
 
 const options = {
@@ -45,6 +45,9 @@ const getOptions = (): Options => {
       .replace(/^(?!\/.*)/, '/$&')
       .replace(/\/$/, '') + '/';
   const mode = parsedArgs.values.mode!;
+  if (!isMode(mode)) {
+    throw new Error(`Invalid mode: ${mode}`);
+  }
   return { port, baseurl, mode };
 };
 
