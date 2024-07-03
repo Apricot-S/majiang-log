@@ -46,7 +46,7 @@ majiang-log-server &
 curl -sS http://127.0.0.1:8001/majiang-log/log -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
 ```
 
-## 使用方法 / Usage
+## オプション / Option
 
 ### majiang-log [--mode *(log|viewer)*]
 
