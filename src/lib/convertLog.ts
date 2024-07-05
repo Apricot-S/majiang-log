@@ -10,6 +10,8 @@ const isMajiangLog = (obj: unknown): obj is MajiangLog => {
 
 type TenhouViewerUrls = string[];
 
+const VIEWER_URL_HEAD = 'https://tenhou.net/5/#json=';
+
 const HUPAI_NAME = [
   '門前清自摸和',
   '立直',
@@ -76,8 +78,6 @@ const PINGJU_NAME = {
   ron3: '三家和了',
   kan4: '四槓散了',
 } as const;
-
-const VIEWER_URL_HEAD = 'https://tenhou.net/5/#json=';
 
 export const MODE = {
   Log: 'log',
