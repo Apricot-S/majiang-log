@@ -80,6 +80,61 @@ const PINGJU_NAME = {
   kan4: '四槓散了',
 } as const;
 
+const PAI_MAP: { [key: string]: number } = {
+  m0: 51, // 赤五萬
+  m1: 11,
+  m2: 12,
+  m3: 13,
+  m4: 14,
+  m5: 15,
+  m6: 16,
+  m7: 17,
+  m8: 18,
+  m9: 19,
+  p0: 52, // 赤五筒
+  p1: 21,
+  p2: 22,
+  p3: 23,
+  p4: 24,
+  p5: 25,
+  p6: 26,
+  p7: 27,
+  p8: 28,
+  p9: 29,
+  s0: 53, // 赤五索
+  s1: 31,
+  s2: 32,
+  s3: 33,
+  s4: 34,
+  s5: 35,
+  s6: 36,
+  s7: 37,
+  s8: 38,
+  s9: 39,
+  z1: 41, // 東
+  z2: 42, // 南
+  z3: 43, // 西
+  z4: 44, // 北
+  z5: 45, // 白
+  z6: 46, // 發
+  z7: 47, // 中
+} as const;
+
+const convertShoupai = (shoupai: string): number[] => {
+  const decomposed = shoupai.match(/([mpsz]\d+)/g);
+  if (!decomposed) {
+    return [];
+  }
+
+  const transformed = decomposed.flatMap((element) => {
+    const suit = element.charAt(0);
+    const numbers = element.slice(1).split('');
+    return numbers.map((number) => suit + number);
+  });
+
+  return transformed.map((value) => PAI_MAP[value]);
+};
+
 const convertRound = (
   round: MajiangRound,
   qijia: number,
@@ -93,9 +148,13 @@ const convertRound = (
   const changbang = qipai.changbang;
   const lizhibang = qipai.lizhibang;
   const defen = qipai.defen;
-  const baopai = [qipai.baopai];
-  const libaopai: string[] = [];
-  return [[ju, changbang, lizhibang], defen, baopai, libaopai];
+  const baopai = [PAI_MAP[qipai.baopai]];
+  const libaopai: number[] = [];
+  const shoupai = qipai.shoupai.map((s) => convertShoupai(s));
+  const gotPai = [[0], [1], [2], [3]];
+  const dapai = [[0], [1], [2], [3]];
+  const actions = shoupai.flatMap((_, i) => [shoupai[i], gotPai[i], dapai[i]]);
+  return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions];
 };
 
 const convertPlayer = (player: string[], qijia: number): string[] => {
