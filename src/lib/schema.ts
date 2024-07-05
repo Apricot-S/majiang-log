@@ -219,6 +219,22 @@ const MAJIANG_PINGJU_SCHEMA = {
   },
 } as const;
 
+const MAJIANG_ROUND_SCHEMA = {
+  type: 'object',
+  properties: {
+    qipai: MAJIANG_QIPAI_SCHEMA,
+    zimo: MAJIANG_ZIMO_SCHEMA,
+    dapai: MAJIANG_DAPAI_SCHEMA,
+    fulou: MAJIANG_FULOU_SCHEMA,
+    gang: MAJIANG_GANG_SCHEMA,
+    gangzimo: MAJIANG_GANGZIMO_SCHEMA,
+    kaigang: MAJIANG_KAIGANG_SCHEMA,
+    hule: MAJIANG_HULE_SCHEMA,
+    pingju: MAJIANG_PINGJU_SCHEMA,
+  },
+  additionalProperties: false,
+} as const;
+
 export const MAJIANG_LOG_SCHEMA = {
   type: 'object',
   required: ['title', 'player', 'qijia', 'log', 'defen', 'point', 'rank'],
@@ -241,21 +257,7 @@ export const MAJIANG_LOG_SCHEMA = {
       type: 'array',
       items: {
         type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            qipai: MAJIANG_QIPAI_SCHEMA,
-            zimo: MAJIANG_ZIMO_SCHEMA,
-            dapai: MAJIANG_DAPAI_SCHEMA,
-            fulou: MAJIANG_FULOU_SCHEMA,
-            gang: MAJIANG_GANG_SCHEMA,
-            gangzimo: MAJIANG_GANGZIMO_SCHEMA,
-            kaigang: MAJIANG_KAIGANG_SCHEMA,
-            hule: MAJIANG_HULE_SCHEMA,
-            pingju: MAJIANG_PINGJU_SCHEMA,
-          },
-          additionalProperties: false,
-        },
+        items: MAJIANG_ROUND_SCHEMA,
       },
     },
     defen: {
@@ -279,6 +281,16 @@ export const MAJIANG_LOG_SCHEMA = {
   },
 } as const;
 
+export type MajiangQipai = FromSchema<typeof MAJIANG_QIPAI_SCHEMA>;
+export type MajiangZimo = FromSchema<typeof MAJIANG_ZIMO_SCHEMA>;
+export type MajiangDapai = FromSchema<typeof MAJIANG_DAPAI_SCHEMA>;
+export type MajiangFulou = FromSchema<typeof MAJIANG_FULOU_SCHEMA>;
+export type MajiangGang = FromSchema<typeof MAJIANG_GANG_SCHEMA>;
+export type MajiangGangzimo = FromSchema<typeof MAJIANG_GANGZIMO_SCHEMA>;
+export type MajiangKaigang = FromSchema<typeof MAJIANG_KAIGANG_SCHEMA>;
+export type MajiangHule = FromSchema<typeof MAJIANG_HULE_SCHEMA>;
+export type MajiangPingju = FromSchema<typeof MAJIANG_PINGJU_SCHEMA>;
+export type MajiangRound = FromSchema<typeof MAJIANG_ROUND_SCHEMA>;
 export type MajiangLog = FromSchema<typeof MAJIANG_LOG_SCHEMA>;
 
 export const TENHOU_LOG_SCHEMA = {
