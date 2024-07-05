@@ -83,6 +83,13 @@ type TenhouViewerUrls = string[];
 
 const VIEWER_URL_HEAD = 'https://tenhou.net/5/#json=';
 
+const logToUrls = (log: TenhouLog): TenhouViewerUrls => {
+  return log.log.map((logElement) => {
+    const newLog: TenhouLog = { ...log, log: [logElement] };
+    return VIEWER_URL_HEAD + JSON.stringify(newLog);
+  });
+};
+
 export const MODE = {
   Log: 'log',
   Viewer: 'viewer',
@@ -128,13 +135,7 @@ export const convertLog = (
     case MODE.Log:
       return log;
     case MODE.Viewer:
-      return log.log.map((logElement) => {
-        const newLog: TenhouLog = {
-          ...log,
-          log: [logElement],
-        };
-        return VIEWER_URL_HEAD + JSON.stringify(newLog);
-      });
+      return logToUrls(log);
     default:
       return assertNever(mode);
   }
