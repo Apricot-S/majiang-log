@@ -19,7 +19,10 @@ export const MAJIANG_LOG_SCHEMA = {
     log: {
       type: 'array',
       items: {
-        type: 'object',
+        type: 'array',
+        items: {
+          type: 'object',
+        },
       },
     },
     defen: {
