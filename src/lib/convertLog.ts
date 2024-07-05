@@ -1,21 +1,13 @@
-import { MajiangLog, TenhouLog } from './schema.js';
+import { Ajv } from 'ajv';
+import { MajiangLog, TenhouLog, MAJIANG_LOG_SCHEMA } from './schema.js';
+
+const ajv = new Ajv();
+const majiangLogValidator = ajv.compile(MAJIANG_LOG_SCHEMA);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isMajiangLog = (obj: any): obj is MajiangLog => {
-  return (
-    typeof obj.title === 'string' &&
-    Array.isArray(obj.player) &&
-    obj.player.every((item: unknown) => typeof item === 'string') &&
-    typeof obj.qijia === 'number' &&
-    Array.isArray(obj.log) &&
-    obj.log.every((item: unknown) => Array.isArray(item)) &&
-    Array.isArray(obj.defen) &&
-    obj.defen.every((item: unknown) => typeof item === 'number') &&
-    Array.isArray(obj.point) &&
-    obj.point.every((item: unknown) => typeof item === 'string') &&
-    Array.isArray(obj.rank) &&
-    obj.rank.every((item: unknown) => typeof item === 'number')
-  );
+  const valid = majiangLogValidator(obj);
+  return valid;
 };
 
 export type TenhouViewerUrls = string[];
