@@ -111,7 +111,7 @@ export const convertLog = (
     name: input.player,
     ratingc: 'PF4',
     rule: { aka: 1, disp: '電脳南喰赤' },
-    title: ['電脳麻将', ''],
+    title: ['', ''],
     ver: '2.3',
   };
 
