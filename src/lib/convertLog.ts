@@ -8,10 +8,6 @@ const isMajiangLog = (obj: unknown): obj is MajiangLog => {
   return valid;
 };
 
-type TenhouViewerUrls = string[];
-
-const VIEWER_URL_HEAD = 'https://tenhou.net/5/#json=';
-
 const HUPAI_NAME = [
   '門前清自摸和',
   '立直',
@@ -79,6 +75,14 @@ const PINGJU_NAME = {
   kan4: '四槓散了',
 } as const;
 
+const convertPlayer = (player: string[], qijia: number): string[] => {
+  return player.map((_, i) => player[(i + qijia) % player.length]);
+};
+
+type TenhouViewerUrls = string[];
+
+const VIEWER_URL_HEAD = 'https://tenhou.net/5/#json=';
+
 export const MODE = {
   Log: 'log',
   Viewer: 'viewer',
@@ -89,10 +93,6 @@ export type Mode = (typeof MODE)[keyof typeof MODE];
 const isMode = (mode: string): mode is Mode => {
   const modes: string[] = Object.values(MODE);
   return modes.includes(mode);
-};
-
-const convertPlayer = (player: string[], qijia: number): string[] => {
-  return player.map((_, i) => player[(i + qijia) % player.length]);
 };
 
 const assertNever = (arg: never): never => {
