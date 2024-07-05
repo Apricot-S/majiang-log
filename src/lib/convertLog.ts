@@ -2,7 +2,7 @@ type MajiangLog = {
   title: string;
   player: string[];
   qijia: number;
-  log: object[];
+  log: object[][];
   defen: number[];
   point: string[];
   rank: number[];
@@ -16,7 +16,7 @@ const isMajiangLog = (obj: any): obj is MajiangLog => {
     obj.player.every((item: unknown) => typeof item === 'string') &&
     typeof obj.qijia === 'number' &&
     Array.isArray(obj.log) &&
-    obj.log.every((item: unknown) => typeof item === 'object') &&
+    obj.log.every((item: unknown) => Array.isArray(item)) &&
     Array.isArray(obj.defen) &&
     obj.defen.every((item: unknown) => typeof item === 'number') &&
     Array.isArray(obj.point) &&
