@@ -2,11 +2,9 @@ import { Ajv } from 'ajv';
 import { MajiangLog, TenhouLog, MAJIANG_LOG_SCHEMA } from './schema.js';
 
 const ajv = new Ajv();
-const majiangLogValidator = ajv.compile(MAJIANG_LOG_SCHEMA);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isMajiangLog = (obj: any): obj is MajiangLog => {
-  const valid = majiangLogValidator(obj);
+const validateMajiangLog = ajv.compile(MAJIANG_LOG_SCHEMA);
+const isMajiangLog = (obj: unknown): obj is MajiangLog => {
+  const valid = validateMajiangLog(obj);
   return valid;
 };
 
@@ -102,7 +100,9 @@ export const convertLog = (
   }
 
   if (!isMajiangLog(input)) {
-    throw new Error(`Invalid input: ${input}`);
+    throw new Error(
+      `Invalid input:\n${JSON.stringify(validateMajiangLog.errors, null, 2)}`,
+    );
   }
 
   const log: TenhouLog = {
