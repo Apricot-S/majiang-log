@@ -95,6 +95,11 @@ const convertPlayer = (player: string[], qijia: number): string[] => {
   return player.map((_, i) => player[(i + qijia) % player.length]);
 };
 
+const assertNever = (arg: never): never => {
+  const value = JSON.stringify(arg);
+  throw new Error(`Expected code to be unreachable, but got: ${value}`);
+};
+
 export const convertLog = (
   input: object,
   mode: string,
@@ -119,15 +124,18 @@ export const convertLog = (
     ver: '2.3',
   };
 
-  if (mode === MODE.Viewer) {
-    return log.log.map((logElement) => {
-      const newLog: TenhouLog = {
-        ...log,
-        log: [logElement],
-      };
-      return VIEWER_URL_HEAD + JSON.stringify(newLog);
-    });
+  switch (mode) {
+    case MODE.Log:
+      return log;
+    case MODE.Viewer:
+      return log.log.map((logElement) => {
+        const newLog: TenhouLog = {
+          ...log,
+          log: [logElement],
+        };
+        return VIEWER_URL_HEAD + JSON.stringify(newLog);
+      });
+    default:
+      return assertNever(mode);
   }
-
-  return log;
 };
