@@ -8,7 +8,7 @@ const isMajiangLog = (obj: unknown): obj is MajiangLog => {
   return valid;
 };
 
-export type TenhouViewerUrls = string[];
+type TenhouViewerUrls = string[];
 
 const HUPAI_NAME = [
   '門前清自摸和',
