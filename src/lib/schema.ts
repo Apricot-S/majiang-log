@@ -219,7 +219,7 @@ const MAJIANG_PINGJU_SCHEMA = {
   },
 } as const;
 
-const MAJIANG_ROUND_SCHEMA = {
+const MAJIANG_ACTION_SCHEMA = {
   type: 'object',
   properties: {
     qipai: MAJIANG_QIPAI_SCHEMA,
@@ -233,6 +233,11 @@ const MAJIANG_ROUND_SCHEMA = {
     pingju: MAJIANG_PINGJU_SCHEMA,
   },
   additionalProperties: false,
+} as const;
+
+const MAJIANG_ROUND_SCHEMA = {
+  type: 'array',
+  items: MAJIANG_ACTION_SCHEMA,
 } as const;
 
 export const MAJIANG_LOG_SCHEMA = {
@@ -255,10 +260,7 @@ export const MAJIANG_LOG_SCHEMA = {
     },
     log: {
       type: 'array',
-      items: {
-        type: 'array',
-        items: MAJIANG_ROUND_SCHEMA,
-      },
+      items: MAJIANG_ROUND_SCHEMA,
     },
     defen: {
       type: 'array',
@@ -290,6 +292,7 @@ export type MajiangGangzimo = FromSchema<typeof MAJIANG_GANGZIMO_SCHEMA>;
 export type MajiangKaigang = FromSchema<typeof MAJIANG_KAIGANG_SCHEMA>;
 export type MajiangHule = FromSchema<typeof MAJIANG_HULE_SCHEMA>;
 export type MajiangPingju = FromSchema<typeof MAJIANG_PINGJU_SCHEMA>;
+export type MajiangAction = FromSchema<typeof MAJIANG_ACTION_SCHEMA>;
 export type MajiangRound = FromSchema<typeof MAJIANG_ROUND_SCHEMA>;
 export type MajiangLog = FromSchema<typeof MAJIANG_LOG_SCHEMA>;
 
