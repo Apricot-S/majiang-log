@@ -49,22 +49,19 @@ const createServer = (baseurl: string): FastifyInstance => {
   }).withTypeProvider<JsonSchemaToTsProvider>();
 
   const schema = { body: MAJIANG_LOG_SCHEMA };
+  const opts = { schema };
 
-  server.post(`${baseurl}${MODE.Log}`, { schema }, async (request, reply) => {
+  server.post(`${baseurl}${MODE.Log}`, opts, async (request, reply) => {
     const data = request.body;
     const output = convertLog(data, MODE.Log);
     reply.header('Content-Type', 'application/json').code(200).send(output);
   });
 
-  server.post(
-    `${baseurl}${MODE.Viewer}`,
-    { schema },
-    async (request, reply) => {
-      const data = request.body;
-      const output = convertLog(data, MODE.Viewer);
-      reply.header('Content-Type', 'application/json').code(200).send(output);
-    },
-  );
+  server.post(`${baseurl}${MODE.Viewer}`, opts, async (request, reply) => {
+    const data = request.body;
+    const output = convertLog(data, MODE.Viewer);
+    reply.header('Content-Type', 'application/json').code(200).send(output);
+  });
 
   return server;
 };
