@@ -1,5 +1,10 @@
 import { Ajv } from 'ajv';
-import { MajiangLog, TenhouLog, MAJIANG_LOG_SCHEMA } from './schema.js';
+import {
+  MajiangLog,
+  MajiangRound,
+  MAJIANG_LOG_SCHEMA,
+  TenhouLog,
+} from './schema.js';
 
 const ajv = new Ajv();
 const validateMajiangLog = ajv.compile(MAJIANG_LOG_SCHEMA);
@@ -75,6 +80,24 @@ const PINGJU_NAME = {
   kan4: '四槓散了',
 } as const;
 
+const convertRound = (
+  round: MajiangRound,
+  qijia: number,
+): (number | string)[][] => {
+  if (round[0].qipai === undefined) {
+    throw new Error('There is no qipai at the beginning of the log.');
+  }
+
+  const qipai = round[0].qipai;
+  const ju = qipai.zhuangfeng * qipai.defen.length + qipai.jushu;
+  const changbang = qipai.changbang;
+  const lizhibang = qipai.lizhibang;
+  const defen = qipai.defen;
+  const baopai = [qipai.baopai];
+  const libaopai: string[] = [];
+  return [[ju, changbang, lizhibang], defen, baopai, libaopai];
+};
+
 const convertPlayer = (player: string[], qijia: number): string[] => {
   return player.map((_, i) => player[(i + qijia) % player.length]);
 };
@@ -123,7 +146,7 @@ export const convertLog = (
 
   const log: TenhouLog = {
     lobby: 0,
-    log: input.log,
+    log: input.log.map((round) => convertRound(round, input.qijia)),
     name: convertPlayer(input.player, input.qijia),
     ratingc: 'PF4',
     rule: { aka: 1, disp: '電脳南喰赤' },
