@@ -107,7 +107,7 @@ export const convertLog = (
 
   const log: TenhouLog = {
     lobby: 0,
-    log: [],
+    log: input.log,
     name: input.player,
     ratingc: 'PF4',
     rule: { aka: 1, disp: '電脳南喰赤' },
@@ -116,7 +116,14 @@ export const convertLog = (
   };
 
   if (mode === MODE.Viewer) {
-    return [VIEWER_URL_HEAD + JSON.stringify(log)];
+    return log.log.map((logElement) => {
+      const newLog: TenhouLog = {
+        ...log,
+        log: [logElement],
+      };
+      return VIEWER_URL_HEAD + JSON.stringify(newLog);
+    });
   }
+
   return log;
 };
