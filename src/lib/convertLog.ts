@@ -1,12 +1,4 @@
-type MajiangLog = {
-  title: string;
-  player: string[];
-  qijia: number;
-  log: object[][];
-  defen: number[];
-  point: string[];
-  rank: number[];
-};
+import { MajiangLog, TenhouLog } from './schema.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isMajiangLog = (obj: any): obj is MajiangLog => {
@@ -24,16 +16,6 @@ const isMajiangLog = (obj: any): obj is MajiangLog => {
     Array.isArray(obj.rank) &&
     obj.rank.every((item: unknown) => typeof item === 'number')
   );
-};
-
-export type TenhouLog = {
-  lobby: number;
-  log: object[];
-  name: string[];
-  ratingc: string;
-  rule: object;
-  title: string[];
-  ver: string;
 };
 
 export type TenhouViewerUrls = string[];

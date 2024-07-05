@@ -1,3 +1,5 @@
+import { FromSchema } from 'json-schema-to-ts';
+
 const MAJIANG_QIPAI_SCHEMA = {
   type: 'object',
   required: [
@@ -275,6 +277,8 @@ export const MAJIANG_LOG_SCHEMA = {
   },
 } as const;
 
+export type MajiangLog = FromSchema<typeof MAJIANG_LOG_SCHEMA>;
+
 export const TENHOU_LOG_SCHEMA = {
   type: 'object',
   required: ['lobby', 'log', 'name', 'ratingc', 'rule', 'title', 'ver'],
@@ -319,3 +323,5 @@ export const TENHOU_LOG_SCHEMA = {
     },
   },
 } as const;
+
+export type TenhouLog = FromSchema<typeof TENHOU_LOG_SCHEMA>;
