@@ -305,6 +305,7 @@ export const TENHOU_LOG_SCHEMA = {
     },
     rule: {
       type: 'object',
+      required: ['aka', 'disp'],
       properties: {
         aka: {
           type: 'integer',
