@@ -12,7 +12,7 @@ export const MAJIANG_LOG_SCHEMA = {
       },
     },
     qijia: {
-      type: 'number',
+      type: 'integer',
       minimum: 0,
       maximum: 3,
     },
@@ -28,7 +28,7 @@ export const MAJIANG_LOG_SCHEMA = {
     defen: {
       type: 'array',
       items: {
-        type: 'number',
+        type: 'integer',
       },
     },
     point: {
@@ -40,7 +40,7 @@ export const MAJIANG_LOG_SCHEMA = {
     rank: {
       type: 'array',
       items: {
-        type: 'number',
+        type: 'integer',
       },
     },
   },
@@ -51,7 +51,7 @@ export const TENHOU_LOG_SCHEMA = {
   required: ['lobby', 'log', 'name', 'ratingc', 'rule', 'title', 'ver'],
   properties: {
     lobby: {
-      type: 'number',
+      type: 'integer',
     },
     log: {
       type: 'array',
@@ -72,7 +72,7 @@ export const TENHOU_LOG_SCHEMA = {
       type: 'object',
       properties: {
         aka: {
-          type: 'number',
+          type: 'integer',
         },
         disp: {
           type: 'string',
