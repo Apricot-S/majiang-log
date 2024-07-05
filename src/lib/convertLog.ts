@@ -91,6 +91,10 @@ const isMode = (mode: string): mode is Mode => {
   return modes.includes(mode);
 };
 
+const convertPlayer = (player: string[], qijia: number): string[] => {
+  return player.map((_, i) => player[(i + qijia) % player.length]);
+};
+
 export const convertLog = (
   input: object,
   mode: string,
@@ -108,7 +112,7 @@ export const convertLog = (
   const log: TenhouLog = {
     lobby: 0,
     log: input.log,
-    name: input.player,
+    name: convertPlayer(input.player, input.qijia),
     ratingc: 'PF4',
     rule: { aka: 1, disp: '電脳南喰赤' },
     title: ['', ''],
