@@ -168,7 +168,8 @@ const convertFulou = (mianzi: string): string => {
     .slice(1)
     .map((item) => PAI_MAP[suit + item].toString());
 
-  const isChi = dazi[0] !== dazi[1];
+  const uniqueChars = new Set(mianzi);
+  const isChi = uniqueChars.size === 5;
   const isGang = dazi.length === 3;
   const isPeng = !isChi && !isGang;
   const fulouPrefix = isChi ? 'c' : isPeng ? 'p' : 'm';
