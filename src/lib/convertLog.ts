@@ -1,6 +1,7 @@
 import { Ajv } from 'ajv';
 import {
   MajiangLog,
+  MajiangPingju,
   MajiangRound,
   MAJIANG_LOG_SCHEMA,
   TenhouLog,
@@ -70,15 +71,6 @@ const HUPAI_NAME = [
   '裏ドラ',
   '赤ドラ',
 ] as const;
-
-const PINGJU_NAME = {
-  nm: '流し満貫',
-  yao9: '九種九牌',
-  kaze4: '四風連打',
-  reach4: '四家立直',
-  ron3: '三家和了',
-  kan4: '四槓散了',
-} as const;
 
 const PAI_MAP: { [key: string]: number } = {
   m0: 51, // 赤五萬
@@ -198,6 +190,30 @@ const convertGang = (mianzi: string): string => {
   return gangzi.join('');
 };
 
+const PINGJU_MAP: { [key: string]: string } = {
+  荒牌平局: '流局',
+  流し満貫: '流し満貫',
+  九種九牌: '九種九牌',
+  四風連打: '四風連打',
+  四家立直: '四家立直',
+  三家和: '三家和了',
+  四開槓: '四槓散了',
+  // The following items are used to convert from Tenhou to Majiang.
+  流局: '流局',
+  三家和了: '三家和了',
+  四槓散了: '四槓散了',
+} as const;
+
+const convertPingju = (
+  pingju: MajiangPingju,
+): { name: string; fenpei?: number[] } => {
+  const name = PINGJU_MAP[pingju.name];
+  if (name === '流局' || name === '流し満貫') {
+    return { name: name, fenpei: pingju.fenpei };
+  }
+  return { name: name };
+};
+
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
   const numItem = arg.length;
   const rotationOffset = (qijia - jushu + numItem) % numItem;
@@ -207,7 +223,7 @@ const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
 const convertRound = (
   round: MajiangRound,
   qijia: number,
-): (number | string)[][] => {
+): (number | string | number[])[][] => {
   if (round[0].qipai === undefined) {
     throw new Error('There is no qipai at the beginning of the log.');
   }
@@ -231,6 +247,7 @@ const convertRound = (
 
   const tempMopai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
   const tempDapai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
+  const end = [];
   for (const action of round) {
     if (action.zimo !== undefined) {
       tempMopai[action.zimo.l].push(PAI_MAP[action.zimo.p]);
@@ -244,13 +261,21 @@ const convertRound = (
       tempMopai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
     } else if (action.kaigang !== undefined) {
       baopai.push(PAI_MAP[action.kaigang.baopai]);
+    } else if (action.hule !== undefined) {
+      end.push('hule');
+    } else if (action.pingju !== undefined) {
+      const pingju = convertPingju(action.pingju);
+      if (pingju.fenpei !== undefined) {
+        end.push(pingju.name, rotateOrder(pingju.fenpei, qijia, qipai.jushu));
+      } else {
+        end.push(pingju.name);
+      }
     }
   }
   const mopai = rotateOrder(tempMopai, qijia, qipai.jushu);
   const dapai = rotateOrder(tempDapai, qijia, qipai.jushu);
 
   const actions = shoupai.flatMap((_, i) => [shoupai[i], mopai[i], dapai[i]]);
-  const end = ['hule or pingju'];
   return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions, end];
 };
 
