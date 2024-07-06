@@ -164,7 +164,8 @@ const convertRound = (
   const gotPai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
   const dapai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
   const actions = shoupai.flatMap((_, i) => [shoupai[i], gotPai[i], dapai[i]]);
-  return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions];
+  const end = ['hule or pingju'];
+  return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions, end];
 };
 
 type TenhouViewerUrls = string[];
