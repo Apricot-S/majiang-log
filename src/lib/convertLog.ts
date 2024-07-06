@@ -135,6 +135,20 @@ const convertShoupai = (shoupai: string): number[] => {
   return transformed.map((value) => PAI_MAP[value]);
 };
 
+const convertDapai = (dapai: string): number | string => {
+  const isLizhi = dapai.endsWith('*');
+  const isMoqie = dapai.includes('_');
+
+  const paiStr = isLizhi ? dapai.slice(0, -1) : dapai;
+  const paiNumber = isMoqie ? 60 : PAI_MAP[paiStr];
+
+  if (isLizhi) {
+    return 'r' + paiNumber.toString();
+  }
+
+  return paiNumber;
+};
+
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
   const numItem = arg.length;
   const rotationOffset = (qijia - jushu + numItem) % numItem;
@@ -167,9 +181,12 @@ const convertRound = (
   );
 
   const tempGotPai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
+  const tempDapai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
   for (const action of round) {
     if (action.zimo !== undefined) {
       tempGotPai[action.zimo.l].push(PAI_MAP[action.zimo.p]);
+    } else if (action.dapai !== undefined) {
+      tempDapai[action.dapai.l].push(convertDapai(action.dapai.p));
     } else if (action.gangzimo !== undefined) {
       tempGotPai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
     } else if (action.kaigang !== undefined) {
@@ -177,8 +194,8 @@ const convertRound = (
     }
   }
   const gotPai = rotateOrder(tempGotPai, qijia, qipai.jushu);
+  const dapai = rotateOrder(tempDapai, qijia, qipai.jushu);
 
-  const dapai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
   const actions = shoupai.flatMap((_, i) => [shoupai[i], gotPai[i], dapai[i]]);
   const end = ['hule or pingju'];
   return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions, end];
