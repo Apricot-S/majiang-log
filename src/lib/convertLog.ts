@@ -136,9 +136,9 @@ const convertShoupai = (shoupai: string): number[] => {
 };
 
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
-  const numPlayer = arg.length;
-  const rotationOffset = (qijia + jushu) % numPlayer;
-  return arg.map((_, i) => arg[(i + rotationOffset) % numPlayer]);
+  const numItem = arg.length;
+  const rotationOffset = (qijia - jushu + numItem) % numItem;
+  return arg.map((_, i) => arg[(i + rotationOffset) % numItem]);
 };
 
 const convertRound = (
