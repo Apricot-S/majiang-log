@@ -150,18 +150,34 @@ const convertRound = (
   }
 
   const qipai = round[0].qipai;
-  const ju = qipai.zhuangfeng * qipai.defen.length + qipai.jushu;
+  const numPlayer = qipai.defen.length;
+
+  const ju = qipai.zhuangfeng * numPlayer + qipai.jushu;
   const changbang = qipai.changbang;
   const lizhibang = qipai.lizhibang;
   const defen = rotateOrder(qipai.defen, qijia, qipai.jushu);
+
   const baopai = [PAI_MAP[qipai.baopai]];
   const libaopai: number[] = [];
+
   const shoupai = rotateOrder(
     qipai.shoupai.map((s) => convertShoupai(s)),
     qijia,
     qipai.jushu,
   );
-  const gotPai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
+
+  const tempGotPai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
+  for (const action of round) {
+    if (action.zimo !== undefined) {
+      tempGotPai[action.zimo.l].push(PAI_MAP[action.zimo.p]);
+    } else if (action.gangzimo !== undefined) {
+      tempGotPai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
+    } else if (action.kaigang !== undefined) {
+      baopai.push(PAI_MAP[action.kaigang.baopai]);
+    }
+  }
+  const gotPai = rotateOrder(tempGotPai, qijia, qipai.jushu);
+
   const dapai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
   const actions = shoupai.flatMap((_, i) => [shoupai[i], gotPai[i], dapai[i]]);
   const end = ['hule or pingju'];
