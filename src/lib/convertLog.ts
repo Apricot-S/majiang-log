@@ -135,6 +135,12 @@ const convertShoupai = (shoupai: string): number[] => {
   return transformed.map((value) => PAI_MAP[value]);
 };
 
+const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
+  const numPlayer = arg.length;
+  const rotationOffset = (qijia + jushu) % numPlayer;
+  return arg.map((_, i) => arg[(i + rotationOffset) % numPlayer]);
+};
+
 const convertRound = (
   round: MajiangRound,
   qijia: number,
@@ -150,15 +156,15 @@ const convertRound = (
   const defen = qipai.defen;
   const baopai = [PAI_MAP[qipai.baopai]];
   const libaopai: number[] = [];
-  const shoupai = qipai.shoupai.map((s) => convertShoupai(s));
-  const gotPai = [[0], [1], [2], [3]];
-  const dapai = [[0], [1], [2], [3]];
+  const shoupai = rotateOrder(
+    qipai.shoupai.map((s) => convertShoupai(s)),
+    qijia,
+    qipai.jushu,
+  );
+  const gotPai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
+  const dapai = rotateOrder([[0], [1], [2], [3]], qijia, qipai.jushu);
   const actions = shoupai.flatMap((_, i) => [shoupai[i], gotPai[i], dapai[i]]);
   return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions];
-};
-
-const convertPlayer = (player: string[], qijia: number): string[] => {
-  return player.map((_, i) => player[(i + qijia) % player.length]);
 };
 
 type TenhouViewerUrls = string[];
@@ -206,7 +212,7 @@ export const convertLog = (
   const log: TenhouLog = {
     lobby: 0,
     log: input.log.map((round) => convertRound(round, input.qijia)),
-    name: convertPlayer(input.player, input.qijia),
+    name: rotateOrder(input.player, input.qijia, 0),
     ratingc: 'PF4',
     rule: { aka: 1, disp: '電脳南喰赤' },
     title: ['', ''],
