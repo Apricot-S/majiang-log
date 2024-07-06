@@ -179,6 +179,25 @@ const convertFulou = (mianzi: string): string => {
   return dazi.join('');
 };
 
+const convertGang = (mianzi: string): string => {
+  const match = mianzi.match(/(\d)([-+=])/);
+  const isAngang = match === null;
+
+  const suit = mianzi.charAt(0);
+  const gangzi = isAngang
+    ? Array.from(mianzi)
+        .slice(1)
+        .map((item) => PAI_MAP[suit + item].toString())
+    : Array.from(mianzi.replace(match[2], ''))
+        .slice(1)
+        .map((item) => PAI_MAP[suit + item].toString());
+
+  const fulouPrefix = isAngang ? 'a' : 'k';
+  const insertPosition = isAngang ? 3 : FULOU_TARGET_MAP[match[2]];
+  gangzi.splice(insertPosition, 0, fulouPrefix);
+  return gangzi.join('');
+};
+
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
   const numItem = arg.length;
   const rotationOffset = (qijia - jushu + numItem) % numItem;
@@ -219,6 +238,8 @@ const convertRound = (
       tempDapai[action.dapai.l].push(convertDapai(action.dapai.p));
     } else if (action.fulou !== undefined) {
       tempMopai[action.fulou.l].push(convertFulou(action.fulou.m));
+    } else if (action.gang !== undefined) {
+      tempDapai[action.gang.l].push(convertGang(action.gang.m));
     } else if (action.gangzimo !== undefined) {
       tempMopai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
     } else if (action.kaigang !== undefined) {
