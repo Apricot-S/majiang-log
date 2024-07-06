@@ -210,13 +210,10 @@ export const convertLog = (
   }
 
   const log: TenhouLog = {
-    lobby: 0,
-    log: input.log.map((round) => convertRound(round, input.qijia)),
-    name: rotateOrder(input.player, input.qijia, 0),
-    ratingc: 'PF4',
-    rule: { aka: 1, disp: '電脳南喰赤' },
     title: ['', ''],
-    ver: '2.3',
+    name: rotateOrder(input.player, input.qijia, 0),
+    rule: { disp: '電脳南喰赤', aka: 1 },
+    log: input.log.map((round) => convertRound(round, input.qijia)),
   };
 
   switch (mode) {

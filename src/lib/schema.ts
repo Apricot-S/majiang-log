@@ -298,15 +298,12 @@ export type MajiangLog = FromSchema<typeof MAJIANG_LOG_SCHEMA>;
 
 export const TENHOU_LOG_SCHEMA = {
   type: 'object',
-  required: ['lobby', 'log', 'name', 'ratingc', 'rule', 'title', 'ver'],
+  required: ['title', 'name', 'rule', 'log'],
   properties: {
-    lobby: {
-      type: 'integer',
-    },
-    log: {
+    title: {
       type: 'array',
       items: {
-        type: 'array',
+        type: 'string',
       },
     },
     name: {
@@ -315,29 +312,23 @@ export const TENHOU_LOG_SCHEMA = {
         type: 'string',
       },
     },
-    ratingc: {
-      type: 'string',
-    },
     rule: {
       type: 'object',
-      required: ['aka', 'disp'],
+      required: ['disp', 'aka'],
       properties: {
-        aka: {
-          type: 'integer',
-        },
         disp: {
           type: 'string',
         },
+        aka: {
+          type: 'integer',
+        },
       },
     },
-    title: {
+    log: {
       type: 'array',
       items: {
-        type: 'string',
+        type: 'array',
       },
-    },
-    ver: {
-      type: 'string',
     },
   },
 } as const;
