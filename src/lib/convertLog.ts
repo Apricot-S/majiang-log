@@ -149,6 +149,35 @@ const convertDapai = (dapai: string): number | string => {
   return paiNumber;
 };
 
+const FULOU_TARGET_MAP: { [key: string]: number } = {
+  '-': 0, // Shangjia
+  '=': 1, // Duimian
+  '+': 2, // Xiajia
+} as const;
+
+const convertFulou = (mianzi: string): string => {
+  const match = mianzi.match(/(\d)([-+=])/);
+  if (match === null) {
+    throw new Error('The tile obtained from another player cannot be found.');
+  }
+
+  const suit = mianzi.charAt(0);
+  const obtainedTile = PAI_MAP[suit + match[1]].toString();
+  const obtainedFrom = FULOU_TARGET_MAP[match[2]];
+  const dazi = Array.from(mianzi.replace(match[0], ''))
+    .slice(1)
+    .map((item) => PAI_MAP[suit + item].toString());
+
+  const isChi = dazi[0] !== dazi[1];
+  const isGang = dazi.length === 3;
+  const isPeng = !isChi && !isGang;
+  const fulouPrefix = isChi ? 'c' : isPeng ? 'p' : 'm';
+
+  const insertPosition = isGang && obtainedFrom === 2 ? 3 : obtainedFrom;
+  dazi.splice(insertPosition, 0, fulouPrefix + obtainedTile);
+  return dazi.join('');
+};
+
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
   const numItem = arg.length;
   const rotationOffset = (qijia - jushu + numItem) % numItem;
@@ -187,6 +216,8 @@ const convertRound = (
       tempGotPai[action.zimo.l].push(PAI_MAP[action.zimo.p]);
     } else if (action.dapai !== undefined) {
       tempDapai[action.dapai.l].push(convertDapai(action.dapai.p));
+    } else if (action.fulou !== undefined) {
+      tempGotPai[action.fulou.l].push(convertFulou(action.fulou.m));
     } else if (action.gangzimo !== undefined) {
       tempGotPai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
     } else if (action.kaigang !== undefined) {
