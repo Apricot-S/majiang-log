@@ -211,13 +211,32 @@ const SANJIA_ZIMO_TABLE: { [key: string]: string } = {
   役満: '8000-16000',
 } as const;
 
+const ZHUANGJIA_DAMANGUAN_ZIMO_TABLE: { [key: number]: string } = {
+  1: '16000',
+  2: '32000',
+  3: '48000',
+  4: '64000',
+  5: '80000',
+  6: '96000',
+} as const;
+
+const SANJIA_DAMANGUAN_ZIMO_TABLE: { [key: number]: string } = {
+  1: '8000-16000',
+  2: '16000-32000',
+  3: '24000-48000',
+  4: '32000-64000',
+  5: '40000-80000',
+  6: '48000-96000',
+} as const;
+
 const convertHule = (hule: MajiangHule): Hule => {
   const hujia = hule.l;
   const baojia = hule.baojia ?? hujia;
   const damanguanBaojia = hujia;
   const libaopai = hule.fubaopai?.map((p) => PAI_MAP[p]) ?? [];
 
-  const isDamanguan = hule.damanguan !== undefined;
+  const damanguan = hule.damanguan;
+  const isDamanguan = damanguan !== undefined;
   const hupai: string[] = isDamanguan
     ? hule.hupai.map((item) => `${item.name}(役満)`)
     : hule.hupai.map((item) => `${item.name}(${item.fanshu}飜)`);
@@ -245,8 +264,12 @@ const convertHule = (hule: MajiangHule): Hule => {
   const defen =
     hule.baojia === null
       ? hujia === 0
-        ? ZHUANGJIA_ZIMO_TABLE[prefix]
-        : SANJIA_ZIMO_TABLE[prefix]
+        ? isDamanguan
+          ? ZHUANGJIA_DAMANGUAN_ZIMO_TABLE[damanguan]
+          : ZHUANGJIA_ZIMO_TABLE[prefix]
+        : isDamanguan
+          ? SANJIA_DAMANGUAN_ZIMO_TABLE[damanguan]
+          : SANJIA_ZIMO_TABLE[prefix]
       : hule.defen;
 
   const suffix = hule.baojia === null && hujia === 0 ? '∀' : '';
