@@ -229,10 +229,20 @@ const SANJIA_DAMANGUAN_ZIMO_TABLE: { [key: number]: string } = {
   6: '48000-96000',
 } as const;
 
+const DAMANGUAN_BAOJIA_MAP: { [key: string]: number } = {
+  '-': 3, // Shangjia
+  '=': 2, // Duimian
+  '+': 1, // Xiajia
+} as const;
+
 const convertHule = (hule: MajiangHule): Hule => {
   const hujia = hule.l;
   const baojia = hule.baojia ?? hujia;
-  const damanguanBaojia = hujia;
+  const baoIndicator = hule.hupai.find((h) => h.baojia !== undefined)?.baojia;
+  const damanguanBaojia =
+    baoIndicator === undefined
+      ? hujia
+      : rotatePlayer(DAMANGUAN_BAOJIA_MAP[baoIndicator], hujia);
   const libaopai = hule.fubaopai?.map((p) => PAI_MAP[p]) ?? [];
 
   const damanguan = hule.damanguan;

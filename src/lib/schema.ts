@@ -185,6 +185,9 @@ const MAJIANG_HULE_SCHEMA = {
             type: 'integer',
             minimum: 0,
           },
+          baojia: {
+            type: 'string',
+          },
         },
       },
     },
