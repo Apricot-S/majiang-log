@@ -362,6 +362,7 @@ export const convertLog = (
   const log: TenhouLog = {
     title: ['', ''],
     name: rotateOrder(input.player, -input.qijia),
+    // Since the conversion direction is opposite, make qijia negative
     rule: { disp: '電脳南喰赤', aka: 1 },
     log: input.log.map((round) => convertRound(round)),
   };
