@@ -250,7 +250,7 @@ const rotateOrder = <T>(arg: T[], jushu: number): T[] => {
 
 const convertRound = (
   round: MajiangRound,
-): (number | string | number[])[][] => {
+): (number | string | (number | string)[])[][] => {
   if (round[0].qipai === undefined) {
     throw new Error('There is no qipai at the beginning of the log.');
   }
