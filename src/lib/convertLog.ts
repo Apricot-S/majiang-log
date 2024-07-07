@@ -240,6 +240,7 @@ const convertHule = (hule: MajiangHule): Hule => {
   const hupai: string[] = isDamanguan
     ? hule.hupai.map((item) => `${item.name}(役満)`)
     : hule.hupai.map((item) => `${item.name}(${item.fanshu}飜)`);
+  // Even in the case of "ダブル役満", it will be displayed as "役満".
 
   const fanshu = hule.fanshu ?? 0;
   const fu = hule.fu ?? 0;
