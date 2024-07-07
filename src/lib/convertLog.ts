@@ -191,15 +191,25 @@ const HUPAI_NAME = [
   '赤ドラ',
 ] as const;
 
-const convertHule = (
-  hule: MajiangHule,
-): {
+type Hule = {
   name: string;
   fenpei: number[];
-  libaopai?: number[];
-  detail?: (number | string)[];
-} => {
-  return { name: '和了', fenpei: hule.fenpei };
+  players: number[];
+  detail?: string[];
+  libaopai: number[];
+};
+
+const convertHule = (hule: MajiangHule): Hule => {
+  const hujia = hule.l;
+  const baojia = hule.baojia ?? hujia;
+  const damanguanBaojia = hujia;
+  const libaopai = hule.fubaopai?.map((p) => PAI_MAP[p]) ?? [];
+  return {
+    name: '和了',
+    fenpei: hule.fenpei,
+    players: [hujia, baojia, damanguanBaojia],
+    libaopai: libaopai,
+  };
 };
 
 const PINGJU_MAP: { [key: string]: string } = {
@@ -226,6 +236,12 @@ const convertPingju = (
   return { name: name };
 };
 
+const rotatePlayer = (player: number, jushu: number): number => {
+  const numPlayer = 4;
+  const rotationOffset = (jushu + numPlayer) % numPlayer;
+  return (player + rotationOffset) % numPlayer;
+};
+
 const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
   const numItem = arg.length;
   const rotationOffset = (qijia - jushu + numItem) % numItem;
@@ -249,7 +265,7 @@ const convertRound = (
   const defen = rotateOrder(qipai.defen, qijia, qipai.jushu);
 
   const baopai = [PAI_MAP[qipai.baopai]];
-  const libaopai: number[] = [];
+  let libaopai: number[] | undefined = undefined;
 
   const shoupai = rotateOrder(
     qipai.shoupai.map((s) => convertShoupai(s)),
@@ -275,7 +291,14 @@ const convertRound = (
       baopai.push(PAI_MAP[action.kaigang.baopai]);
     } else if (action.hule !== undefined) {
       const hule = convertHule(action.hule);
-      end.push(hule.name, rotateOrder(hule.fenpei, qijia, qipai.jushu));
+
+      if (libaopai === undefined) {
+        libaopai = hule.libaopai;
+      }
+
+      const fenpei = rotateOrder(hule.fenpei, qijia, qipai.jushu);
+      const players = hule.players.map((p) => rotatePlayer(p, qipai.jushu));
+      end.push(hule.name, fenpei, players);
     } else if (action.pingju !== undefined) {
       const pingju = convertPingju(action.pingju);
       if (pingju.fenpei !== undefined) {
@@ -289,6 +312,11 @@ const convertRound = (
   const dapai = rotateOrder(tempDapai, qijia, qipai.jushu);
 
   const actions = shoupai.flatMap((_, i) => [shoupai[i], mopai[i], dapai[i]]);
+
+  if (libaopai === undefined) {
+    libaopai = [];
+  }
+
   return [[ju, changbang, lizhibang], defen, baopai, libaopai, ...actions, end];
 };
 
