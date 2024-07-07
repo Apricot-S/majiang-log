@@ -152,11 +152,32 @@ const convertHule = (hule: MajiangHule): Hule => {
     ? hule.hupai.map((item) => `${item.name}(役満)`)
     : hule.hupai.map((item) => `${item.name}(${item.fanshu}飜)`);
 
+  const fanshu = hule.fanshu ?? 0;
+  const fu = hule.fu ?? 0;
+  const prefix = isDamanguan
+    ? '役満'
+    : fanshu >= 13
+      ? '役満'
+      : fanshu >= 11
+        ? '三倍満'
+        : fanshu >= 8
+          ? '倍満'
+          : fanshu >= 6
+            ? '跳満'
+            : fanshu >= 5
+              ? '満貫'
+              : fanshu >= 4 && fu >= 40
+                ? '満貫'
+                : fanshu >= 3 && fu >= 70
+                  ? '満貫'
+                  : `${fu}符${fanshu}飜`;
+  const suffix = hule.baojia === null && hujia === 0 ? '∀' : '';
+
   return {
     name: '和了',
     fenpei: hule.fenpei,
     players: [hujia, baojia, damanguanBaojia],
-    detail: [`${hule.defen}点`, ...hupai],
+    detail: [`${prefix}${hule.defen}点${suffix}`, ...hupai],
     libaopai: libaopai,
   };
 };
