@@ -195,7 +195,7 @@ type Hule = {
   name: string;
   fenpei: number[];
   players: number[];
-  detail?: string[];
+  detail: string[];
   libaopai: number[];
 };
 
@@ -208,6 +208,7 @@ const convertHule = (hule: MajiangHule): Hule => {
     name: '和了',
     fenpei: hule.fenpei,
     players: [hujia, baojia, damanguanBaojia],
+    detail: [`${hule.defen}点`, '役名(1飜)'],
     libaopai: libaopai,
   };
 };
@@ -295,7 +296,7 @@ const convertRound = (
 
       const fenpei = rotateOrder(hule.fenpei, qipai.jushu);
       const players = hule.players.map((p) => rotatePlayer(p, qipai.jushu));
-      end.push(hule.name, fenpei, players);
+      end.push(hule.name, fenpei, [...players, ...hule.detail]);
     } else if (action.pingju !== undefined) {
       const pingju = convertPingju(action.pingju);
       if (pingju.fenpei !== undefined) {
