@@ -361,7 +361,7 @@ export const convertLog = (
 
   const log: TenhouLog = {
     title: ['', ''],
-    name: rotateOrder(input.player, input.qijia),
+    name: rotateOrder(input.player, -input.qijia),
     rule: { disp: '電脳南喰赤', aka: 1 },
     log: input.log.map((round) => convertRound(round)),
   };
