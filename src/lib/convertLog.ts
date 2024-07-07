@@ -1,5 +1,6 @@
 import { Ajv } from 'ajv';
 import {
+  MajiangHule,
   MajiangLog,
   MajiangPingju,
   MajiangRound,
@@ -13,64 +14,6 @@ const isMajiangLog = (obj: unknown): obj is MajiangLog => {
   const valid = validateMajiangLog(obj);
   return valid;
 };
-
-const HUPAI_NAME = [
-  '門前清自摸和',
-  '立直',
-  '一発',
-  '槍槓',
-  '嶺上開花',
-  '海底摸月',
-  '河底撈魚',
-  '平和',
-  '断幺九',
-  '一盃口',
-  '自風 東',
-  '自風 南',
-  '自風 西',
-  '自風 北',
-  '場風 東',
-  '場風 南',
-  '場風 西',
-  '場風 北',
-  '役牌 白',
-  '役牌 發',
-  '役牌 中',
-  '両立直',
-  '七対子',
-  '混全帯幺九',
-  '一気通貫',
-  '三色同順',
-  '三色同刻',
-  '三槓子',
-  '対々和',
-  '三暗刻',
-  '小三元',
-  '混老頭',
-  '二盃口',
-  '純全帯幺九',
-  '混一色',
-  '清一色',
-  '',
-  '天和',
-  '地和',
-  '大三元',
-  '四暗刻',
-  '四暗刻単騎',
-  '字一色',
-  '緑一色',
-  '清老頭',
-  '九蓮宝燈',
-  '純正九蓮宝燈',
-  '国士無双',
-  '国士無双１３面',
-  '大四喜',
-  '小四喜',
-  '四槓子',
-  'ドラ',
-  '裏ドラ',
-  '赤ドラ',
-] as const;
 
 const PAI_MAP: { [key: string]: number } = {
   m0: 51, // 赤五萬
@@ -190,6 +133,75 @@ const convertGang = (mianzi: string): string => {
   return gangzi.join('');
 };
 
+const HUPAI_NAME = [
+  '門前清自摸和',
+  '立直',
+  '一発',
+  '槍槓',
+  '嶺上開花',
+  '海底摸月',
+  '河底撈魚',
+  '平和',
+  '断幺九',
+  '一盃口',
+  '自風 東',
+  '自風 南',
+  '自風 西',
+  '自風 北',
+  '場風 東',
+  '場風 南',
+  '場風 西',
+  '場風 北',
+  '役牌 白',
+  '役牌 發',
+  '役牌 中',
+  '両立直',
+  '七対子',
+  '混全帯幺九',
+  '一気通貫',
+  '三色同順',
+  '三色同刻',
+  '三槓子',
+  '対々和',
+  '三暗刻',
+  '小三元',
+  '混老頭',
+  '二盃口',
+  '純全帯幺九',
+  '混一色',
+  '清一色',
+  '',
+  '天和',
+  '地和',
+  '大三元',
+  '四暗刻',
+  '四暗刻単騎',
+  '字一色',
+  '緑一色',
+  '清老頭',
+  '九蓮宝燈',
+  '純正九蓮宝燈',
+  '国士無双',
+  '国士無双１３面',
+  '大四喜',
+  '小四喜',
+  '四槓子',
+  'ドラ',
+  '裏ドラ',
+  '赤ドラ',
+] as const;
+
+const convertHule = (
+  hule: MajiangHule,
+): {
+  name: string;
+  fenpei: number[];
+  libaopai?: number[];
+  detail?: (number | string)[];
+} => {
+  return { name: '和了', fenpei: hule.fenpei };
+};
+
 const PINGJU_MAP: { [key: string]: string } = {
   荒牌平局: '流局',
   流し満貫: '流し満貫',
@@ -262,7 +274,8 @@ const convertRound = (
     } else if (action.kaigang !== undefined) {
       baopai.push(PAI_MAP[action.kaigang.baopai]);
     } else if (action.hule !== undefined) {
-      end.push('hule');
+      const hule = convertHule(action.hule);
+      end.push(hule.name, rotateOrder(hule.fenpei, qijia, qipai.jushu));
     } else if (action.pingju !== undefined) {
       const pingju = convertPingju(action.pingju);
       if (pingju.fenpei !== undefined) {
