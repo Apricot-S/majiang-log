@@ -238,19 +238,17 @@ const convertPingju = (
 
 const rotatePlayer = (player: number, jushu: number): number => {
   const numPlayer = 4;
-  const rotationOffset = (jushu + numPlayer) % numPlayer;
-  return (player + rotationOffset) % numPlayer;
+  return (player + jushu) % numPlayer;
 };
 
-const rotateOrder = <T>(arg: T[], qijia: number, jushu: number): T[] => {
+const rotateOrder = <T>(arg: T[], jushu: number): T[] => {
   const numItem = arg.length;
-  const rotationOffset = (qijia - jushu + numItem) % numItem;
+  const rotationOffset = (numItem - jushu) % numItem;
   return arg.map((_, i) => arg[(i + rotationOffset) % numItem]);
 };
 
 const convertRound = (
   round: MajiangRound,
-  qijia: number,
 ): (number | string | number[])[][] => {
   if (round[0].qipai === undefined) {
     throw new Error('There is no qipai at the beginning of the log.');
@@ -262,14 +260,13 @@ const convertRound = (
   const ju = qipai.zhuangfeng * numPlayer + qipai.jushu;
   const changbang = qipai.changbang;
   const lizhibang = qipai.lizhibang;
-  const defen = rotateOrder(qipai.defen, qijia, qipai.jushu);
+  const defen = rotateOrder(qipai.defen, qipai.jushu);
 
   const baopai = [PAI_MAP[qipai.baopai]];
   let libaopai: number[] | undefined = undefined;
 
   const shoupai = rotateOrder(
     qipai.shoupai.map((s) => convertShoupai(s)),
-    qijia,
     qipai.jushu,
   );
 
@@ -296,20 +293,20 @@ const convertRound = (
         libaopai = hule.libaopai;
       }
 
-      const fenpei = rotateOrder(hule.fenpei, qijia, qipai.jushu);
+      const fenpei = rotateOrder(hule.fenpei, qipai.jushu);
       const players = hule.players.map((p) => rotatePlayer(p, qipai.jushu));
       end.push(hule.name, fenpei, players);
     } else if (action.pingju !== undefined) {
       const pingju = convertPingju(action.pingju);
       if (pingju.fenpei !== undefined) {
-        end.push(pingju.name, rotateOrder(pingju.fenpei, qijia, qipai.jushu));
+        end.push(pingju.name, rotateOrder(pingju.fenpei, qipai.jushu));
       } else {
         end.push(pingju.name);
       }
     }
   }
-  const mopai = rotateOrder(tempMopai, qijia, qipai.jushu);
-  const dapai = rotateOrder(tempDapai, qijia, qipai.jushu);
+  const mopai = rotateOrder(tempMopai, qipai.jushu);
+  const dapai = rotateOrder(tempDapai, qipai.jushu);
 
   const actions = shoupai.flatMap((_, i) => [shoupai[i], mopai[i], dapai[i]]);
 
@@ -364,9 +361,9 @@ export const convertLog = (
 
   const log: TenhouLog = {
     title: ['', ''],
-    name: rotateOrder(input.player, input.qijia, 0),
+    name: rotateOrder(input.player, input.qijia),
     rule: { disp: '電脳南喰赤', aka: 1 },
-    log: input.log.map((round) => convertRound(round, input.qijia)),
+    log: input.log.map((round) => convertRound(round)),
   };
 
   switch (mode) {
