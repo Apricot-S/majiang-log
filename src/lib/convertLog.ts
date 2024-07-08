@@ -106,7 +106,7 @@ const convertRound = (
     if (handler) {
       handler(action);
     } else {
-      // throw new Error(`Unknown action: ${key}`);
+      throw new Error(`Unknown action: ${key}`);
     }
   }
 
