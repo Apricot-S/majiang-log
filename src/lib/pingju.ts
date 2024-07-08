@@ -18,8 +18,7 @@ export const convertPingju = (
   pingju: MajiangPingju,
 ): { name: string; fenpei?: number[] } => {
   const name = PINGJU_MAP[pingju.name];
-  if (name === '流局' || name === '流し満貫') {
-    return { name: name, fenpei: pingju.fenpei };
-  }
-  return { name: name };
+  return name === '流局' || name === '流し満貫'
+    ? { name: name, fenpei: pingju.fenpei }
+    : { name: name };
 };
