@@ -8,6 +8,7 @@ import { PAI_MAP } from './pai.js';
 import { convertPingju } from './pingju.js';
 import { rotateOrder, rotatePlayer } from './rotate.js';
 import {
+  MajiangAction,
   MajiangLog,
   MajiangRound,
   MAJIANG_LOG_SCHEMA,
@@ -48,28 +49,37 @@ const convertRound = (
 
   const tempMopai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
   const tempDapai: (number | string)[][] = [...Array(numPlayer)].map(() => []);
-  const end = [];
-  for (const action of round) {
-    if (action.zimo !== undefined) {
-      tempMopai[action.zimo.l].push(PAI_MAP[action.zimo.p]);
-    } else if (action.dapai !== undefined) {
-      tempDapai[action.dapai.l].push(convertDapai(action.dapai.p));
-    } else if (action.fulou !== undefined) {
-      const mianzi = convertFulou(action.fulou.m);
-      tempMopai[action.fulou.l].push(mianzi);
+  const end: (string | (string | number)[])[] = [];
+
+  const handlers = {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    qipai: (action: MajiangAction) => {},
+    zimo: (action: MajiangAction) => {
+      tempMopai[action.zimo!.l].push(PAI_MAP[action.zimo!.p]);
+    },
+    dapai: (action: MajiangAction) => {
+      tempDapai[action.dapai!.l].push(convertDapai(action.dapai!.p));
+    },
+    fulou: (action: MajiangAction) => {
+      const mianzi = convertFulou(action.fulou!.m);
+      tempMopai[action.fulou!.l].push(mianzi);
 
       // When daminggang, put a placeholder in dapai.
       if (mianzi.includes('m')) {
-        tempDapai[action.fulou.l].push(0);
+        tempDapai[action.fulou!.l].push(0);
       }
-    } else if (action.gang !== undefined) {
-      tempDapai[action.gang.l].push(convertGang(action.gang.m));
-    } else if (action.gangzimo !== undefined) {
-      tempMopai[action.gangzimo.l].push(PAI_MAP[action.gangzimo.p]);
-    } else if (action.kaigang !== undefined) {
-      baopai.push(PAI_MAP[action.kaigang.baopai]);
-    } else if (action.hule !== undefined) {
-      const hule = convertHule(action.hule);
+    },
+    gang: (action: MajiangAction) => {
+      tempDapai[action.gang!.l].push(convertGang(action.gang!.m));
+    },
+    gangzimo: (action: MajiangAction) => {
+      tempMopai[action.gangzimo!.l].push(PAI_MAP[action.gangzimo!.p]);
+    },
+    kaigang: (action: MajiangAction) => {
+      baopai.push(PAI_MAP[action.kaigang!.baopai]);
+    },
+    hule: (action: MajiangAction) => {
+      const hule = convertHule(action.hule!);
 
       if (libaopai === undefined) {
         libaopai = hule.libaopai;
@@ -78,15 +88,28 @@ const convertRound = (
       const fenpei = rotateOrder(hule.fenpei, qipai.jushu);
       const players = hule.players.map((p) => rotatePlayer(p, qipai.jushu));
       end.push(hule.name, fenpei, [...players, ...hule.detail]);
-    } else if (action.pingju !== undefined) {
-      const pingju = convertPingju(action.pingju);
+    },
+    pingju: (action: MajiangAction) => {
+      const pingju = convertPingju(action.pingju!);
       if (pingju.fenpei !== undefined) {
         end.push(pingju.name, rotateOrder(pingju.fenpei, qipai.jushu));
       } else {
         end.push(pingju.name);
       }
+    },
+  };
+
+  for (const action of round) {
+    const keys = Object.keys(action);
+    const key = keys[0] as keyof MajiangAction;
+    const handler = handlers[key];
+    if (handler) {
+      handler(action);
+    } else {
+      // throw new Error(`Unknown action: ${key}`);
     }
   }
+
   const mopai = rotateOrder(tempMopai, qipai.jushu);
   const dapai = rotateOrder(tempDapai, qipai.jushu);
 
