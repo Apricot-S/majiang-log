@@ -101,6 +101,11 @@ const convertRound = (
 
   for (const action of round) {
     const keys = Object.keys(action);
+    if (keys.length !== 1) {
+      throw keys.length > 1
+        ? new Error(`An action has multiple properties.: ${keys.length}`)
+        : new Error('An action has no property.');
+    }
     const key = keys[0] as keyof MajiangAction;
     const handler = handlers[key];
     if (handler) {
