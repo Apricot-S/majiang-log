@@ -235,6 +235,69 @@ const DAMANGUAN_BAOJIA_MAP: { [key: string]: number } = {
   '+': 1, // Xiajia
 } as const;
 
+const HUPAI_NAME_MAP: { [key: string]: string } = {
+  立直: '立直',
+  ダブル立直: '両立直',
+  一発: '一発',
+  海底摸月: '海底摸月',
+  河底撈魚: '河底撈魚',
+  嶺上開花: '嶺上開花',
+  槍槓: '槍槓',
+  天和: '天和',
+  地和: '地和',
+  門前清自摸和: '門前清自摸和',
+  '場風 東': '場風 東',
+  '場風 南': '場風 南',
+  '場風 西': '場風 西',
+  '場風 北': '場風 北',
+  '自風 東': '自風 東',
+  '自風 南': '自風 南',
+  '自風 西': '自風 西',
+  '自風 北': '自風 北',
+  '翻牌 白': '役牌 白',
+  '翻牌 發': '役牌 發',
+  '翻牌 中': '役牌 中',
+  平和: '平和',
+  断幺九: '断幺九',
+  一盃口: '一盃口',
+  三色同順: '三色同順',
+  一気通貫: '一気通貫',
+  混全帯幺九: '混全帯幺九',
+  七対子: '七対子',
+  対々和: '対々和',
+  三暗刻: '三暗刻',
+  三槓子: '三槓子',
+  三色同刻: '三色同刻',
+  混老頭: '混老頭',
+  小三元: '小三元',
+  混一色: '混一色',
+  純全帯幺九: '純全帯幺九',
+  二盃口: '二盃口',
+  清一色: '清一色',
+  国士無双十三面: '国士無双１３面',
+  国士無双: '国士無双',
+  四暗刻単騎: '四暗刻単騎',
+  四暗刻: '四暗刻',
+  大三元: '大三元',
+  大四喜: '大四喜',
+  小四喜: '小四喜',
+  字一色: '字一色',
+  緑一色: '緑一色',
+  清老頭: '清老頭',
+  四槓子: '四槓子',
+  純正九蓮宝燈: '純正九蓮宝燈',
+  九蓮宝燈: '九蓮宝燈',
+  ドラ: 'ドラ',
+  赤ドラ: '赤ドラ',
+  裏ドラ: '裏ドラ',
+  // The following items are used to convert from Tenhou to Majiang.
+  '役牌 白': '役牌 白',
+  '役牌 發': '役牌 發',
+  '役牌 中': '役牌 中',
+  両立直: '両立直',
+  国士無双１３面: '国士無双１３面',
+} as const;
+
 const convertHule = (hule: MajiangHule): Hule => {
   const hujia = hule.l;
   const baojia = hule.baojia ?? hujia;
@@ -248,8 +311,10 @@ const convertHule = (hule: MajiangHule): Hule => {
   const damanguan = hule.damanguan;
   const isDamanguan = damanguan !== undefined;
   const hupai: string[] = isDamanguan
-    ? hule.hupai.map((item) => `${item.name}(役満)`)
-    : hule.hupai.map((item) => `${item.name}(${item.fanshu}飜)`);
+    ? hule.hupai.map((item) => `${HUPAI_NAME_MAP[item.name]}(役満)`)
+    : hule.hupai.map(
+        (item) => `${HUPAI_NAME_MAP[item.name]}(${item.fanshu}飜)`,
+      );
   // Even in the case of "ダブル役満", it will be displayed as "役満".
 
   const fanshu = hule.fanshu ?? 0;
