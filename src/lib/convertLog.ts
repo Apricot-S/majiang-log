@@ -426,7 +426,13 @@ const convertRound = (
     } else if (action.dapai !== undefined) {
       tempDapai[action.dapai.l].push(convertDapai(action.dapai.p));
     } else if (action.fulou !== undefined) {
-      tempMopai[action.fulou.l].push(convertFulou(action.fulou.m));
+      const mianzi = convertFulou(action.fulou.m);
+      tempMopai[action.fulou.l].push(mianzi);
+
+      // When daminggang, put a placeholder in dapai.
+      if (mianzi.includes('m')) {
+        tempDapai[action.fulou.l].push(0);
+      }
     } else if (action.gang !== undefined) {
       tempDapai[action.gang.l].push(convertGang(action.gang.m));
     } else if (action.gangzimo !== undefined) {
