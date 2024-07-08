@@ -2,7 +2,8 @@
 
 import fs from 'node:fs';
 import { parseArgs } from 'node:util';
-import { convertLog, MODE } from './lib/convertLog.js';
+import { convertLog } from './lib/convertLog.js';
+import { MODE } from './lib/mode.js';
 
 const options = {
   mode: {

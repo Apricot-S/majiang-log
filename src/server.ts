@@ -3,7 +3,8 @@
 import { parseArgs } from 'node:util';
 import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
 import Fastify, { FastifyInstance } from 'fastify';
-import { convertLog, MODE } from './lib/convertLog.js';
+import { convertLog } from './lib/convertLog.js';
+import { MODE } from './lib/mode.js';
 import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
 
 const options = {
