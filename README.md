@@ -22,7 +22,7 @@ majiang-log$ npm install -g --omit=dev
 majiang-log < PATH/TO/majiang-game-record.json > PATH/TO/your-favorite-name.txt
 ```
 
-Docker を使用する場合
+#### Docker を使用する場合
 
 イメージのビルド
 
