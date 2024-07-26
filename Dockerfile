@@ -8,7 +8,7 @@ FROM node:${NODE_VERSION}-${OS_VERSION} AS base
 FROM base AS builder
 WORKDIR /work
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY tsconfig.json ./
@@ -20,7 +20,7 @@ WORKDIR /work
 
 ENV NODE_ENV=production
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && \
     npm cache clean --force
 
