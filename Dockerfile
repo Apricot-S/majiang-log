@@ -3,7 +3,7 @@
 ARG NODE_VERSION=20
 ARG OS_VERSION=bookworm-slim
 
-FROM node:${NODE_VERSION}-${OS_VERSION} as base
+FROM node:${NODE_VERSION}-${OS_VERSION} AS base
 
 FROM base AS builder
 WORKDIR /work
@@ -15,7 +15,7 @@ COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
-FROM base as runner
+FROM base AS runner
 WORKDIR /work
 
 ENV NODE_ENV production
