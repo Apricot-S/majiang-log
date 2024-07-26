@@ -9,7 +9,8 @@ FROM base AS builder
 WORKDIR /work
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -21,8 +22,8 @@ WORKDIR /work
 ENV NODE_ENV=production
 
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && \
-    npm cache clean --force
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci --omit=dev
 
 COPY --from=builder /work/dist ./dist
 
