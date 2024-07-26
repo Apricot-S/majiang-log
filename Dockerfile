@@ -18,7 +18,7 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /work
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 COPY package*.json ./
 RUN npm install --omit=dev && npm cache clean --force
