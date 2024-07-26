@@ -25,6 +25,8 @@ COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
     npm ci --omit=dev
 
-COPY --from=builder /work/dist ./dist
+USER node
+
+COPY --from=builder --chown=node:node /work/dist ./dist
 
 ENTRYPOINT ["npx", "majiang-log"]
