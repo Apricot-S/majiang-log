@@ -9,7 +9,7 @@ FROM base AS builder
 WORKDIR /work
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -21,7 +21,8 @@ WORKDIR /work
 ENV NODE_ENV=production
 
 COPY package*.json ./
-RUN npm install --omit=dev && npm cache clean --force
+RUN npm ci --omit=dev && \
+    npm cache clean --force
 
 COPY --from=builder /work/dist ./dist
 
