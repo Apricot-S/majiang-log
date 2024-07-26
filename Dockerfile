@@ -1,21 +1,32 @@
-FROM node:20-bookworm-slim AS builder
+# syntax=docker/dockerfile:1
+
+ARG NODE_VERSION=20
+ARG OS_VERSION=bookworm-slim
+
+FROM node:${NODE_VERSION}-${OS_VERSION} AS base
+
+FROM base AS builder
 WORKDIR /work
 
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
-FROM node:20-bookworm-slim as runner
+FROM base AS runner
 WORKDIR /work
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
-COPY package*.json ./
-RUN npm install --omit=dev && npm cache clean --force
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci --omit=dev
 
-COPY --from=builder /work/dist ./dist
+USER node
+
+COPY --from=builder --chown=node:node /work/dist ./dist
 
 ENTRYPOINT ["npx", "majiang-log"]
