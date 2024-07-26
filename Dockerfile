@@ -1,6 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20-bookworm-slim AS builder
+ARG NODE_VERSION=20
+ARG OS_VERSION=bookworm-slim
+
+FROM node:${NODE_VERSION}-${OS_VERSION} as base
+
+FROM base AS builder
 WORKDIR /work
 
 COPY package*.json ./
@@ -10,7 +15,7 @@ COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
-FROM node:20-bookworm-slim as runner
+FROM base as runner
 WORKDIR /work
 
 ENV NODE_ENV production
