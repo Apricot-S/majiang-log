@@ -24,6 +24,7 @@
     "dist"
   ],
   "main": "dist/lib/convertLog.js",
+  "types": "dist/lib/convertLog.d.ts",
   "bin": {
     "majiang-log": "dist/command.js",
     "majiang-log-server": "dist/server.js"
