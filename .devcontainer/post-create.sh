@@ -12,12 +12,12 @@ if [[ -t 1 ]] && type -t tput >/dev/null; then
   fi
 fi
 
-sudo chown -R node .
-
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get clean
 sudo rm -rf /var/lib/apt/lists/*
+
+sudo chown node:node /workspaces
 
 sudo corepack enable npm
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
