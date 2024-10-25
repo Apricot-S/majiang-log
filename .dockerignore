@@ -9,6 +9,7 @@ Dockerfile
 
 LICENSE
 README.md
+THIRD-PARTY-NOTICES.md
 
 dist/
 node_modules/
