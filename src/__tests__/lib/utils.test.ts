@@ -1,38 +1,42 @@
-import { test, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { assertNever } from '../../lib/utils.js';
 
-test('throws an error with the provided argument: string', () => {
-  expect(() => assertNever('some invalid arg' as never)).toThrowError(
-    'Expected code to be unreachable, but got: "some invalid arg"',
-  );
-});
+describe('assertNever', () => {
+  describe('throws an error with the provided argument', () => {
+    const commonMessage = 'Expected code to be unreachable, but got: ';
 
-test('throws an error with the provided argument: number', () => {
-  expect(() => assertNever(1 as never)).toThrowError(
-    'Expected code to be unreachable, but got: 1',
-  );
-});
+    it('string', () => {
+      expect(() => assertNever('some invalid arg' as never)).toThrowError(
+        `${commonMessage}"some invalid arg"`,
+      );
+    });
 
-test('throws an error with the provided argument: boolean', () => {
-  expect(() => assertNever(true as never)).toThrowError(
-    'Expected code to be unreachable, but got: true',
-  );
-});
+    it('number', () => {
+      expect(() => assertNever(0 as never)).toThrowError(`${commonMessage}0`);
+    });
 
-test('throws an error with the provided argument: undefined', () => {
-  expect(() => assertNever(undefined as never)).toThrowError(
-    'Expected code to be unreachable, but got: undefined',
-  );
-});
+    it('boolean', () => {
+      expect(() => assertNever(true as never)).toThrowError(
+        `${commonMessage}true`,
+      );
+    });
 
-test('throws an error with the provided argument: null', () => {
-  expect(() => assertNever(null as never)).toThrowError(
-    'Expected code to be unreachable, but got: null',
-  );
-});
+    it('undefined', () => {
+      expect(() => assertNever(undefined as never)).toThrowError(
+        `${commonMessage}undefined`,
+      );
+    });
 
-test('throws an error with the provided argument: object', () => {
-  expect(() => assertNever({ a: 1 } as never)).toThrowError(
-    'Expected code to be unreachable, but got: {"a":1}',
-  );
+    it('null', () => {
+      expect(() => assertNever(null as never)).toThrowError(
+        `${commonMessage}null`,
+      );
+    });
+
+    it('object', () => {
+      expect(() => assertNever({ a: 1 } as never)).toThrowError(
+        `${commonMessage}{"a":1}`,
+      );
+    });
+  });
 });
