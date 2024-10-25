@@ -105,4 +105,14 @@ describe('rotateOrder', () => {
       expect(rotateOrder([0, 1, 2, 3], -3)).toEqual([3, 0, 1, 2]);
     });
   });
+
+  describe('Supports empty arrays.', () => {
+    it('[], jushu: 0 -> []', () => {
+      expect(rotateOrder([], 0)).toEqual([]);
+    });
+
+    it('[], jushu: 3 -> []', () => {
+      expect(rotateOrder([], 3)).toEqual([]);
+    });
+  });
 });
