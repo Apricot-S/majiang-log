@@ -153,4 +153,26 @@ describe('convertDapai', () => {
       expect(convertDapai('s0_*')).toBe('r60');
     });
   });
+
+  describe('invalid dapai', () => {
+    it('"" -> ""', () => {
+      expect(convertDapai('')).toBe('');
+    });
+
+    it('m10 -> "m10"', () => {
+      expect(convertDapai('m10')).toBe('m10');
+    });
+
+    it('z8 -> "z8"', () => {
+      expect(convertDapai('z8')).toBe('z8');
+    });
+
+    it('_ -> "_"', () => {
+      expect(convertDapai('_')).toBe('_');
+    });
+
+    it('* -> "*"', () => {
+      expect(convertDapai('*')).toBe('*');
+    });
+  });
 });
