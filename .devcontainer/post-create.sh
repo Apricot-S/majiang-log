@@ -18,6 +18,7 @@ sudo apt-get clean
 sudo rm -rf /var/lib/apt/lists/*
 
 sudo chown node:node /workspaces
+sudo chown -R node:node /workspaces/majiang-log/node_modules
 
 sudo corepack enable npm
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
