@@ -154,25 +154,27 @@ describe('convertDapai', () => {
     });
   });
 
-  describe('invalid dapai', () => {
-    it('"" -> ""', () => {
-      expect(convertDapai('')).toBe('');
+  describe('Throws an error if the dapai is invalid.', () => {
+    const commonMessage = 'Invalid dapai: ';
+
+    it('""', () => {
+      expect(() => convertDapai('')).toThrowError(`${commonMessage}`);
     });
 
-    it('m10 -> "m10"', () => {
-      expect(convertDapai('m10')).toBe('m10');
+    it('m10', () => {
+      expect(() => convertDapai('m10')).toThrowError(`${commonMessage}m10`);
     });
 
-    it('z8 -> "z8"', () => {
-      expect(convertDapai('z8')).toBe('z8');
+    it('z8', () => {
+      expect(() => convertDapai('z8')).toThrowError(`${commonMessage}z8`);
     });
 
-    it('_ -> "_"', () => {
-      expect(convertDapai('_')).toBe('_');
+    it('_', () => {
+      expect(() => convertDapai('_')).toThrowError(`${commonMessage}_`);
     });
 
-    it('* -> "*"', () => {
-      expect(convertDapai('*')).toBe('*');
+    it('*', () => {
+      expect(() => convertDapai('*')).toThrowError(`${commonMessage}*`);
     });
   });
 });

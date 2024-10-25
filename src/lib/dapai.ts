@@ -10,7 +10,7 @@ export const convertDapai = (dapai: string): number | string => {
   const paiNumber1 = PAI_MAP[paiStr2];
 
   if (paiNumber1 === undefined) {
-    return dapai;
+    throw new Error(`Invalid dapai: ${dapai}`);
   }
 
   const paiNumber2 = isMoqie ? 60 : paiNumber1;
