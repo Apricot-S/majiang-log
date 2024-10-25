@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-# Set up colorful debug output for the script
+# Set up colorful debug output
 PS4='+${BASH_SOURCE[0]}:$LINENO: '
 if [[ -t 1 ]] && type -t tput >/dev/null; then
   if (( "$(tput colors)" == 256 )); then
