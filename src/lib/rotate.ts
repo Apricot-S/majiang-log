@@ -1,6 +1,6 @@
 export const rotatePlayer = (player: number, jushu: number): number => {
   const numPlayer = 4;
-  return (player + jushu) % numPlayer;
+  return (player + jushu + numPlayer) % numPlayer;
 };
 
 export const rotateOrder = <T>(arg: T[], jushu: number): T[] => {
