@@ -32,6 +32,7 @@
   "scripts": {
     "lint": "eslint --fix src",
     "format": "prettier . --write --cache",
+    "test": "vitest",
     "build": "tsc"
   },
   "dependencies": {
@@ -50,7 +51,8 @@
     "prettier": "^3.3.2",
     "tsx": "^4.19.1",
     "typescript": "^5.5.2",
-    "typescript-eslint": "^8.0.0"
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.3"
   },
   "engines": {
     "node": ">=20.14.0"
