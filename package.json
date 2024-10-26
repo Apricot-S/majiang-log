@@ -23,8 +23,8 @@
   "files": [
     "dist"
   ],
-  "main": "dist/lib/convertLog.js",
-  "types": "dist/lib/convertLog.d.ts",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
     "majiang-log": "dist/command.js",
     "majiang-log-server": "dist/server.js"
