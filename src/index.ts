@@ -1,1 +1,2 @@
-export { convertLog } from './lib/convertLog.js';
+export { Mode, MODE } from './lib/mode.js';
+export { convertLog, TenhouLog, TenhouViewerUrls } from './lib/convertLog.js';
