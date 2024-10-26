@@ -30,7 +30,7 @@
     "majiang-log-server": "dist/server.js"
   },
   "scripts": {
-    "lint": "eslint --fix src",
+    "lint": "eslint --fix src && tsc --noEmit",
     "format": "prettier . --write --cache",
     "test": "vitest",
     "build": "rollup -c"
