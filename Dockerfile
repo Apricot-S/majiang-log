@@ -12,7 +12,7 @@ COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
     npm ci
 
-COPY tsconfig.json ./
+COPY rollup.config.js tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
