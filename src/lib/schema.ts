@@ -32,6 +32,8 @@ const MAJIANG_QIPAI_SCHEMA = {
     },
     defen: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'integer',
       },
@@ -41,6 +43,8 @@ const MAJIANG_QIPAI_SCHEMA = {
     },
     shoupai: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'string',
       },
@@ -193,6 +197,8 @@ const MAJIANG_HULE_SCHEMA = {
     },
     fenpei: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'integer',
       },
@@ -209,12 +215,16 @@ const MAJIANG_PINGJU_SCHEMA = {
     },
     shoupai: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'string',
       },
     },
     fenpei: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'integer',
       },
@@ -252,6 +262,8 @@ export const MAJIANG_LOG_SCHEMA = {
     },
     player: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'string',
       },
@@ -267,18 +279,24 @@ export const MAJIANG_LOG_SCHEMA = {
     },
     defen: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'integer',
       },
     },
     point: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'string',
       },
     },
     rank: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'integer',
       },
@@ -305,12 +323,16 @@ export const TENHOU_LOG_SCHEMA = {
   properties: {
     title: {
       type: 'array',
+      minItems: 2,
+      maxItems: 2,
       items: {
         type: 'string',
       },
     },
     name: {
       type: 'array',
+      minItems: 4,
+      maxItems: 4,
       items: {
         type: 'string',
       },

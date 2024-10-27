@@ -2,10 +2,18 @@ import { PAI_MAP } from './pai.js';
 
 export const convertDapai = (dapai: string): number | string => {
   const isLizhi = dapai.endsWith('*');
-  const isMoqie = dapai.includes('_');
+  const paiStr1 = isLizhi ? dapai.slice(0, -1) : dapai;
 
-  const paiStr = isLizhi ? dapai.slice(0, -1) : dapai;
-  const paiNumber = isMoqie ? 60 : PAI_MAP[paiStr];
+  const isMoqie = paiStr1.endsWith('_');
+  const paiStr2 = isMoqie ? paiStr1.slice(0, -1) : paiStr1;
 
-  return isLizhi ? 'r' + paiNumber.toString() : paiNumber;
+  const paiNumber1 = PAI_MAP[paiStr2];
+
+  if (paiNumber1 === undefined) {
+    throw new Error(`Invalid dapai: ${dapai}`);
+  }
+
+  const paiNumber2 = isMoqie ? 60 : paiNumber1;
+
+  return isLizhi ? 'r' + paiNumber2.toString() : paiNumber2;
 };

@@ -138,7 +138,7 @@ const logToUrls = (log: TenhouLog): TenhouViewerUrls => {
   });
 };
 
-export const convertLog = (
+const convertLog = (
   input: object,
   mode: string,
 ): TenhouLog | TenhouViewerUrls => {
@@ -169,3 +169,5 @@ export const convertLog = (
       return assertNever(mode);
   }
 };
+
+export { convertLog, TenhouLog, TenhouViewerUrls };
