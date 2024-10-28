@@ -8,9 +8,9 @@ import { PAI_MAP } from './pai.js';
 import { convertPingju } from './pingju.js';
 import { rotateOrder, rotatePlayer } from './rotate.js';
 import {
-  MajiangAction,
-  MajiangLog,
-  MajiangRound,
+  type MajiangAction,
+  type MajiangLog,
+  type MajiangRound,
   MAJIANG_LOG_SCHEMA,
   TenhouLog,
 } from './schema.js';
@@ -170,4 +170,4 @@ const convertLog = (
   }
 };
 
-export { convertLog, TenhouLog, TenhouViewerUrls };
+export { convertLog, TenhouLog, type TenhouViewerUrls };

@@ -1,6 +1,6 @@
 import { PAI_MAP } from './pai.js';
 import { rotatePlayer } from './rotate.js';
-import { MajiangHule } from './schema.js';
+import type { MajiangHule } from './schema.js';
 
 const ZHUANGJIA_ZIMO_TABLE: { [key: string]: string } = {
   '20符2飜': '700',

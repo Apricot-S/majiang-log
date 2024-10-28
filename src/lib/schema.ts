@@ -1,4 +1,4 @@
-import { FromSchema } from 'json-schema-to-ts';
+import type { FromSchema } from 'json-schema-to-ts';
 
 const MAJIANG_QIPAI_SCHEMA = {
   type: 'object',

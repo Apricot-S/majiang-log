@@ -1,4 +1,4 @@
-import { MajiangPingju } from './schema.js';
+import type { MajiangPingju } from './schema.js';
 
 const PINGJU_MAP: { [key: string]: string } = {
   荒牌平局: '流局',
