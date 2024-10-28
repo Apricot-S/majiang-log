@@ -36,10 +36,9 @@ const getOptions = (): Options => {
     throw new Error('Invalid port number');
   }
 
-  const baseurl =
-    ('' + parsedArgs.values.baseurl)
-      .replace(/^(?!\/.*)/, '/$&')
-      .replace(/\/$/, '') + '/';
+  const baseurl = `${`${parsedArgs.values.baseurl}`
+    .replace(/^(?!\/.*)/, '/$&')
+    .replace(/\/$/, '')}/`;
 
   return { port, baseurl };
 };
