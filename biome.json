@@ -35,11 +35,5 @@
     "formatter": {
       "quoteStyle": "single"
     }
-  },
-  "overrides": [
-    {
-      "ignore": ["**/dist/**/*", "**/examples/**/*", "**/node_modules/**/*"],
-      "include": ["**/*.{js,mjs,cjs,ts}"]
-    }
-  ]
+  }
 }
