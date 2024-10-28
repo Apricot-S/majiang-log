@@ -52,7 +52,6 @@ const convertRound = (
   const end: (string | (string | number)[])[] = [];
 
   const handlers = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     qipai: (action: MajiangAction) => {},
     zimo: (action: MajiangAction) => {
       tempMopai[action.zimo!.l].push(PAI_MAP[action.zimo!.p]);
