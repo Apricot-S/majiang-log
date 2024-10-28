@@ -13,8 +13,6 @@ THIRD-PARTY-NOTICES.md
 
 dist/
 node_modules/
-.prettierignore
-.prettierrc
-eslint.config.js
+biome.json
 
 examples/

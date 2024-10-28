@@ -1,8 +1,0 @@
-dist/
-examples/
-node_modules/
-LICENSE
-README.md
-THIRD-PARTY-NOTICES.md
-package-lock.json
-tsconfig.json
