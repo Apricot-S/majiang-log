@@ -1,10 +1,15 @@
 {
   "name": "@apricot-s/majiang-log",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "電脳麻将形式の牌譜を天鳳形式に変換する",
   "author": "Apricot S.",
   "license": "MIT",
-  "keywords": ["麻雀", "天鳳", "電脳麻将", "牌譜"],
+  "keywords": [
+    "麻雀",
+    "天鳳",
+    "電脳麻将",
+    "牌譜"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Apricot-S/majiang-log.git"
@@ -15,7 +20,9 @@
   },
   "type": "module",
   "packageManager": "npm@10.8.3+sha512.d08425c8062f56d43bb8e84315864218af2492eb769e1f1ca40740f44e85bd148969382d651660363942e5909cb7ffcbef7ca0ae963ddc2c57a51243b4da8f56",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
