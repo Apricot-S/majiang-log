@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { rotatePlayer, rotateOrder } from '../../lib/rotate.js';
+import { describe, expect, it } from 'vitest';
+import { rotateOrder, rotatePlayer } from '../../lib/rotate.js';
 
 describe('rotatePlayer', () => {
   describe('If `jushu` is 0, does not rotate the player.', () => {
