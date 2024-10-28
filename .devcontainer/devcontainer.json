@@ -26,10 +26,7 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": [
-        "biomejs.biome",
-        "ms-azuretools.vscode-docker"
-      ],
+      "extensions": ["biomejs.biome", "ms-azuretools.vscode-docker"],
       "settings": {
         "editor.tabSize": 2,
         "[javascript]": {
