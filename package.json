@@ -30,8 +30,9 @@
     "majiang-log-server": "dist/server.js"
   },
   "scripts": {
-    "lint": "eslint --fix src && tsc --noEmit",
-    "format": "prettier . --write --cache",
+    "lint": "biome lint --write . && tsc --noEmit",
+    "format": "biome format --write .",
+    "check": "biome check --write . && tsc --noEmit",
     "test": "vitest",
     "build": "rollup -c"
   },
