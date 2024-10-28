@@ -26,25 +26,21 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "ms-azuretools.vscode-docker"
-      ],
+      "extensions": ["biomejs.biome", "ms-azuretools.vscode-docker"],
       "settings": {
         "editor.tabSize": 2,
         "[javascript]": {
           "editor.maxTokenizationLineLength": 2500,
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.defaultFormatter": "biomejs.biome",
           "editor.formatOnSave": true
         },
         "[json]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.defaultFormatter": "biomejs.biome",
           "editor.formatOnSave": true
         },
         "[typescript]": {
           "editor.maxTokenizationLineLength": 2500,
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.defaultFormatter": "biomejs.biome",
           "editor.formatOnSave": true
         }
       }
