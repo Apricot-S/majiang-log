@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": []
+    "ignore": [
+      "**/dist/**/*",
+      "**/examples/**/*",
+      "**/node_modules/**/*",
+      "**/package-lock.json"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -15,16 +20,7 @@
     "indentWidth": 2,
     "lineEnding": "lf",
     "lineWidth": 80,
-    "ignore": [
-      "**/dist/",
-      "**/examples/",
-      "**/node_modules/",
-      "**/LICENSE",
-      "**/README.md",
-      "**/THIRD-PARTY-NOTICES.md",
-      "**/package-lock.json",
-      "**/tsconfig.json"
-    ]
+    "ignore": ["**/tsconfig.json"]
   },
   "organizeImports": {
     "enabled": true
@@ -38,8 +34,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
-    },
-    "globals": ["exports"]
+    }
   },
   "overrides": [
     {
