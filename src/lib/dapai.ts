@@ -15,5 +15,5 @@ export const convertDapai = (dapai: string): number | string => {
 
   const paiNumber2 = isMoqie ? 60 : paiNumber1;
 
-  return isLizhi ? 'r' + paiNumber2.toString() : paiNumber2;
+  return isLizhi ? `r${paiNumber2.toString()}` : paiNumber2;
 };

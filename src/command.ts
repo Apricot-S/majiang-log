@@ -25,8 +25,8 @@ const main = async () => {
   const outputJson = convertLog(parsedInput, mode);
 
   const output = Array.isArray(outputJson)
-    ? outputJson.join('\n') + '\n' // For viewer
-    : JSON.stringify(outputJson) + '\n'; // For log
+    ? `${outputJson.join('\n')}\n` // For viewer
+    : `${JSON.stringify(outputJson)}\n`; // For log
   fs.writeSync(process.stdout.fd, output);
 };
 

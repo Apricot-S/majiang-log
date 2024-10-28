@@ -8,10 +8,10 @@ import { PAI_MAP } from './pai.js';
 import { convertPingju } from './pingju.js';
 import { rotateOrder, rotatePlayer } from './rotate.js';
 import {
-  MajiangAction,
-  MajiangLog,
-  MajiangRound,
   MAJIANG_LOG_SCHEMA,
+  type MajiangAction,
+  type MajiangLog,
+  type MajiangRound,
   TenhouLog,
 } from './schema.js';
 import { convertShoupai } from './shoupai.js';
@@ -52,7 +52,6 @@ const convertRound = (
   const end: (string | (string | number)[])[] = [];
 
   const handlers = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     qipai: (action: MajiangAction) => {},
     zimo: (action: MajiangAction) => {
       tempMopai[action.zimo!.l].push(PAI_MAP[action.zimo!.p]);
@@ -170,4 +169,4 @@ const convertLog = (
   }
 };
 
-export { convertLog, TenhouLog, TenhouViewerUrls };
+export { convertLog, TenhouLog, type TenhouViewerUrls };

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util';
-import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
-import Fastify, { FastifyInstance } from 'fastify';
+import type { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
+import Fastify, { type FastifyInstance } from 'fastify';
 import { convertLog } from './lib/convertLog.js';
 import { MODE } from './lib/mode.js';
 import { MAJIANG_LOG_SCHEMA } from './lib/schema.js';
@@ -31,15 +31,14 @@ const getOptions = (): Options => {
   const args = process.argv.slice(2);
   const parsedArgs = parseArgs({ options, args });
 
-  const port = parseInt(parsedArgs.values.port!);
-  if (isNaN(port) || port < 1024 || port > 49151) {
+  const port = Number.parseInt(parsedArgs.values.port!);
+  if (Number.isNaN(port) || port < 1024 || port > 49151) {
     throw new Error('Invalid port number');
   }
 
-  const baseurl =
-    ('' + parsedArgs.values.baseurl)
-      .replace(/^(?!\/.*)/, '/$&')
-      .replace(/\/$/, '') + '/';
+  const baseurl = `${`${parsedArgs.values.baseurl}`
+    .replace(/^(?!\/.*)/, '/$&')
+    .replace(/\/$/, '')}/`;
 
   return { port, baseurl };
 };
