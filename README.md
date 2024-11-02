@@ -1,6 +1,6 @@
 # majiang-log
 
-電脳麻将形式の牌譜を天鳳形式に変換する
+[電脳麻将](https://github.com/kobalab/Majiang)形式の[牌譜](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E8%AD%9C)を[天鳳](https://tenhou.net/)形式 (https://tenhou.net/6/ 形式) に変換する
 
 ※ 電脳麻将ルールのみ対応している
 
@@ -74,6 +74,10 @@ JSON ログ (mjai-reviewer 用)
 牌譜を JSON ログ (mjai-reviewer 用) に変換する
 - **/majiang-log/viewer**  
 牌譜を天鳳牌譜ビューア URL (NAGA 用) に変換する
+
+## 類似アプリ / Other similar apps
+
+- [tenhou-url-log](https://github.com/kobalab/tenhou-url-log) - 電脳麻将の作者 [Satoshi Kobayashi](https://github.com/kobalab) さんによる実装、npm パッケージとして公開されている ([@kobalab/tenhou-url-log](https://www.npmjs.com/package/@kobalab/tenhou-url-log))
 
 ## ライセンス / License
 
