@@ -1,6 +1,6 @@
 # majiang-log
 
-電脳麻将形式の牌譜を天鳳形式に変換する
+[電脳麻将](https://github.com/kobalab/Majiang)形式の[牌譜](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E8%AD%9C)を[天鳳](https://tenhou.net/)形式 (https://tenhou.net/6/ 形式) に変換する
 
 ※ 電脳麻将ルールのみ対応している
 
