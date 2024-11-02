@@ -75,6 +75,10 @@ JSON ログ (mjai-reviewer 用)
 - **/majiang-log/viewer**  
 牌譜を天鳳牌譜ビューア URL (NAGA 用) に変換する
 
+## 類似アプリ / Other similar apps
+
+- [tenhou-url-log](https://github.com/kobalab/tenhou-url-log) - 電脳麻将の作者 [Satoshi Kobayashi](https://github.com/kobalab) さんによる実装、npm パッケージとして公開されている ([@kobalab/tenhou-url-log](https://www.npmjs.com/package/@kobalab/tenhou-url-log))
+
 ## ライセンス / License
 
 Copyright (c) Apricot S. All rights reserved.
