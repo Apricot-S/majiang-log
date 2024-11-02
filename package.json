@@ -1,6 +1,6 @@
 {
   "name": "@apricot-s/majiang-log",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "電脳麻将形式の牌譜を天鳳形式に変換する",
   "author": "Apricot S.",
   "license": "MIT",
