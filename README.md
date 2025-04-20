@@ -50,6 +50,21 @@ majiang-log-server &
 curl -sS http://127.0.0.1:8001/majiang-log/log -H 'Content-Type: application/json' -d @PATH/TO/majiang-game-record.json -o PATH/TO/your-favorite-name.txt
 ```
 
+### ライブラリとして
+
+```ts
+import { convertLog, MODE } from '@apricot-s/majiang-log';
+
+// Game record (JSON in Majiang format)
+const paipu = {
+  /* Game record data */
+};
+
+const mode = MODE.Log; // or MODE.Viewer
+
+const result = convertLog(paipu, mode);
+```
+
 ## オプション / Option
 
 ### majiang-log [--mode *(log|viewer)*]
