@@ -40,7 +40,7 @@
     "fastify": "^5.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0",
+    "@biomejs/biome": "2.0.6",
     "@fastify/type-provider-json-schema-to-ts": "^5.0.0",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-json": "^6.1.0",
