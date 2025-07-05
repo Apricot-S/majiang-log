@@ -52,7 +52,7 @@ const convertRound = (
   const end: (string | (string | number)[])[] = [];
 
   const handlers = {
-    qipai: (action: MajiangAction) => {},
+    qipai: (_action: MajiangAction) => {},
     zimo: (action: MajiangAction) => {
       tempMopai[action.zimo!.l].push(PAI_MAP[action.zimo!.p]);
     },
