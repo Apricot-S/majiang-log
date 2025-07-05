@@ -12,7 +12,7 @@ import {
   type MajiangAction,
   type MajiangLog,
   type MajiangRound,
-  TenhouLog,
+  type TenhouLog,
 } from './schema.js';
 import { convertShoupai } from './shoupai.js';
 import { assertNever } from './utils.js';
@@ -169,4 +169,4 @@ const convertLog = (
   }
 };
 
-export { convertLog, TenhouLog, type TenhouViewerUrls };
+export { convertLog, type TenhouLog, type TenhouViewerUrls };
