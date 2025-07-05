@@ -3,7 +3,7 @@ import { convertDapai } from './dapai.js';
 import { convertFulou } from './fulou.js';
 import { convertGang } from './gang.js';
 import { convertHule } from './hule.js';
-import { MODE, isMode } from './mode.js';
+import { isMode, MODE } from './mode.js';
 import { PAI_MAP } from './pai.js';
 import { convertPingju } from './pingju.js';
 import { rotateOrder, rotatePlayer } from './rotate.js';
@@ -12,7 +12,7 @@ import {
   type MajiangAction,
   type MajiangLog,
   type MajiangRound,
-  TenhouLog,
+  type TenhouLog,
 } from './schema.js';
 import { convertShoupai } from './shoupai.js';
 import { assertNever } from './utils.js';
@@ -40,7 +40,7 @@ const convertRound = (
   const defen = rotateOrder(qipai.defen, qipai.jushu);
 
   const baopai = [PAI_MAP[qipai.baopai]];
-  let libaopai: number[] | undefined = undefined;
+  let libaopai: number[] | undefined;
 
   const shoupai = rotateOrder(
     qipai.shoupai.map((s) => convertShoupai(s)),
@@ -52,7 +52,7 @@ const convertRound = (
   const end: (string | (string | number)[])[] = [];
 
   const handlers = {
-    qipai: (action: MajiangAction) => {},
+    qipai: (_action: MajiangAction) => {},
     zimo: (action: MajiangAction) => {
       tempMopai[action.zimo!.l].push(PAI_MAP[action.zimo!.p]);
     },
@@ -169,4 +169,4 @@ const convertLog = (
   }
 };
 
-export { convertLog, TenhouLog, type TenhouViewerUrls };
+export { convertLog, type TenhouLog, type TenhouViewerUrls };

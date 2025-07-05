@@ -1,2 +1,6 @@
-export { Mode, MODE } from './lib/mode.js';
-export { convertLog, TenhouLog, TenhouViewerUrls } from './lib/convertLog.js';
+export {
+  convertLog,
+  type TenhouLog,
+  type TenhouViewerUrls,
+} from './lib/convertLog.js';
+export { MODE, type Mode } from './lib/mode.js';
