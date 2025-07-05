@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MODE, isMode } from '../../lib/mode.js';
+import { isMode, MODE } from '../../lib/mode.js';
 
 describe('MODE', () => {
   it('should have "log"', () => {
