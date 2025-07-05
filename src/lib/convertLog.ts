@@ -3,7 +3,7 @@ import { convertDapai } from './dapai.js';
 import { convertFulou } from './fulou.js';
 import { convertGang } from './gang.js';
 import { convertHule } from './hule.js';
-import { MODE, isMode } from './mode.js';
+import { isMode, MODE } from './mode.js';
 import { PAI_MAP } from './pai.js';
 import { convertPingju } from './pingju.js';
 import { rotateOrder, rotatePlayer } from './rotate.js';
