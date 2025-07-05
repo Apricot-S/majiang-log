@@ -40,7 +40,7 @@ const convertRound = (
   const defen = rotateOrder(qipai.defen, qipai.jushu);
 
   const baopai = [PAI_MAP[qipai.baopai]];
-  let libaopai: number[] | undefined = undefined;
+  let libaopai: number[] | undefined;
 
   const shoupai = rotateOrder(
     qipai.shoupai.map((s) => convertShoupai(s)),
