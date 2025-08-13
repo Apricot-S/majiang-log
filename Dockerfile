@@ -8,16 +8,19 @@ FROM node:${NODE_VERSION}-${OS_VERSION} AS base
 FROM base AS builder
 WORKDIR /work
 
-COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm,sharing=locked \
     npm ci
-
-COPY rollup.config.js tsconfig.json ./
-COPY src ./src
 
 ENV NODE_ENV=production
 
-RUN npm run build
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=bind,source=rollup.config.js,target=rollup.config.js \
+    --mount=type=bind,source=tsconfig.json,target=tsconfig.json \
+    --mount=type=bind,source=src,target=src \
+    npm run build
 
 FROM base AS runner
 WORKDIR /work
