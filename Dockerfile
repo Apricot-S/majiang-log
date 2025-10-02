@@ -17,7 +17,7 @@ ENV NODE_ENV=production
 
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=bind,source=rollup.config.js,target=rollup.config.js \
+    --mount=type=bind,source=tsdown.config.ts,target=tsdown.config.ts \
     --mount=type=bind,source=tsconfig.json,target=tsconfig.json \
     --mount=type=bind,source=src,target=src \
     npm run build
