@@ -31,7 +31,7 @@ const getOptions = (): Options => {
   const args = process.argv.slice(2);
   const parsedArgs = parseArgs({ options, args });
 
-  const port = Number.parseInt(parsedArgs.values.port!);
+  const port = Number.parseInt(parsedArgs.values.port!, 10);
   if (Number.isNaN(port) || port < 1024 || port > 49151) {
     throw new Error('Invalid port number');
   }
