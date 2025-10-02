@@ -10,7 +10,6 @@ export default defineConfig([
     entry: './src/command.ts',
     dts: false,
     minify: true,
-    banner: '#!/usr/bin/env node',
   },
   {
     entry: './src/server.ts',
