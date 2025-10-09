@@ -48,7 +48,7 @@ SOFTWARE.
 ```text
 MIT License
 
-Copyright (c) 2016-2024 The Fastify Team
+Copyright (c) 2016-present The Fastify Team
 
 The Fastify team members are listed at https://github.com/fastify/fastify#team
 and in the README file.
