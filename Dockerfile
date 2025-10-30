@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG NODE_VERSION=22
-ARG OS_VERSION=bookworm-slim
+ARG OS_VERSION=trixie-slim
 
 FROM node:${NODE_VERSION}-${OS_VERSION} AS base
 
