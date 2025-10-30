@@ -10,10 +10,12 @@ export default defineConfig([
     entry: './src/command.ts',
     dts: false,
     minify: true,
+    noExternal: ['ajv'],
   },
   {
     entry: './src/server.ts',
     dts: false,
     minify: true,
+    noExternal: ['ajv', 'fastify'],
   },
 ]);
