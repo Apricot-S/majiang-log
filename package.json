@@ -44,7 +44,7 @@
     "@fastify/type-provider-json-schema-to-ts": "^5.0.0",
     "@types/node": "^22.14.1",
     "json-schema-to-ts": "^3.1.1",
-    "tsdown": "^0.20.3",
+    "tsdown": "^0.15.6",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3",
     "vitest": "^4.0.5"
